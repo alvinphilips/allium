@@ -9,6 +9,10 @@ public class FusionManager : MonoBehaviour, INetworkRunnerCallbacks
 {
     public NetworkRunner _runner;
 
+    [SerializeField] private NetworkPrefabRef _playerPrefab;
+    private Dictionary<PlayerRef, NetworkObject> _spawnedCharacters = new Dictionary<PlayerRef, NetworkObject>();
+
+
     //Bind this to UI Buttons
     public void CreateGame()
     {
@@ -24,8 +28,7 @@ public class FusionManager : MonoBehaviour, INetworkRunnerCallbacks
     {
         if(_runner != null)
         {
-            _runner.Shutdown(false);
-            Destroy(_runner);
+            _runner.Shutdown();
         }
     }
 
@@ -70,10 +73,16 @@ public class FusionManager : MonoBehaviour, INetworkRunnerCallbacks
         {
             GameMode = mode,
             SessionName = "TestRoom",
-            Scene = scene,
+            //Scene = scene,
             SceneManager = gameObject.AddComponent<NetworkSceneManagerDefault>()
         });
     }
+
+    private void HandleShutdown()
+    {
+        SceneManager.LoadScene(0);
+    }
+
 
     #region Fusion Callbacks Interface Implementation
     public void OnConnectedToServer(NetworkRunner runner)
@@ -129,11 +138,26 @@ public class FusionManager : MonoBehaviour, INetworkRunnerCallbacks
     public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
     {
         Debug.Log($"{player.PlayerId} joined!");
+
+        if (_runner.IsServer)
+        {
+            // Create a unique position for the player
+            Vector3 spawnPosition = new Vector3((player.RawEncoded % runner.Config.Simulation.PlayerCount) * 3, 1, 0);
+            NetworkObject networkPlayerObject = _runner.Spawn(_playerPrefab, spawnPosition, Quaternion.identity, player);
+            // Keep track of the player avatars for easy access
+            _spawnedCharacters.Add(player, networkPlayerObject);
+        }
     }
 
     public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
     {
         Debug.Log($"{player.PlayerId} left!");
+
+        if (_spawnedCharacters.TryGetValue(player, out NetworkObject networkObject))
+        {
+            runner.Despawn(networkObject);
+            _spawnedCharacters.Remove(player);
+        }
     }
 
     public void OnReliableDataProgress(NetworkRunner runner, PlayerRef player, ReliableKey key, float progress)
@@ -164,6 +188,7 @@ public class FusionManager : MonoBehaviour, INetworkRunnerCallbacks
     public void OnShutdown(NetworkRunner runner, ShutdownReason shutdownReason)
     {
         Debug.Log($"{shutdownReason.ToString()}");
+        HandleShutdown();
     }
 
     public void OnUserSimulationMessage(NetworkRunner runner, SimulationMessagePtr message)
