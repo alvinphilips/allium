@@ -120,7 +120,7 @@ namespace Game.Scripts.Fusion
 
         public void OnInput(NetworkRunner runner, NetworkInput input)
         {
-            Debug.Log($"OnInput");
+            // Debug.Log($"OnInput");
         }
 
         public void OnInputMissing(NetworkRunner runner, PlayerRef player, NetworkInput input)
