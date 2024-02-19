@@ -7,12 +7,12 @@ namespace Game.Scripts.Game.States
     {
         public void OnStateEnter(GameManager state)
         {
-            throw new System.NotImplementedException();
+            GameManager.Instance.mainMenu.SetActive(true);
         }
         
         public void OnStateExit(GameManager state)
         {
-            throw new System.NotImplementedException();
+            GameManager.Instance.mainMenu.SetActive(false);
         }
         
         public void OnStateResume(GameManager state)

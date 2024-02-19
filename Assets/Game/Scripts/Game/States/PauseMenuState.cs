@@ -1,18 +1,26 @@
+using Game.Scripts.Game;
+using Game.Scripts.Patterns;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PauseMenuState : MonoBehaviour
+public class PauseMenuState : IState<GameManager>
 {
-    // Start is called before the first frame update
-    void Start()
+    public void OnStateEnter(GameManager state)
     {
-        
+        GameManager.Instance.pauseMenu.SetActive(true);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OnUpdate(GameManager state)
     {
-        
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            GameManager.Instance.ChangeState(new PlayState());
+        }
+    }
+
+    public void OnStateExit(GameManager state)
+    {
+        GameManager.Instance.pauseMenu.SetActive(false);
     }
 }
