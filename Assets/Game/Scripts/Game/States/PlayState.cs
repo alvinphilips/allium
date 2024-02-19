@@ -1,18 +1,18 @@
+using Game.Scripts.Game;
+using Game.Scripts.Patterns;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
-public class PlayState : MonoBehaviour
+public class PlayState : IState<GameManager>
 {
-    // Start is called before the first frame update
-    void Start()
+    public void OnUpdate(GameManager state) 
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Debug.Log("PlayStateUpdating");
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            GameManager.Instance.ChangeState(new PauseMenuState());
+        }
     }
 }

@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using Fusion;
 using Fusion.Sockets;
+using Game.Scripts.Game;
+using Game.Scripts.Game.States;
 using Game.Scripts.Patterns;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -15,49 +17,7 @@ namespace Game.Scripts.Fusion
         [SerializeField] private NetworkPrefabRef _playerPrefab;
         private Dictionary<PlayerRef, NetworkObject> _spawnedCharacters = new Dictionary<PlayerRef, NetworkObject>();
 
-
-        //Bind this to UI Buttons
-        public void CreateGame()
-        {
-            StartGame(GameMode.Host);
-        }
-
-        public void JoinGame()
-        {
-            StartGame(GameMode.Client);
-        }
-
-        public void LeaveGame()
-        {
-            if(_runner != null)
-            {
-                _runner.Shutdown();
-            }
-        }
-
-        private void OnGUI()
-        {
-            if (_runner == null)
-            {
-                if (GUI.Button(new Rect(0, 0, 200, 40), "Host"))
-                {
-                    CreateGame();
-                }
-                if (GUI.Button(new Rect(0, 40, 200, 40), "Join"))
-                {
-                    JoinGame();
-                }
-            }
-            else
-            {
-                if (GUI.Button(new Rect(0, 0, 200, 40), "Leave"))
-                {
-                    LeaveGame();
-                }
-            }
-        }
-
-        async void StartGame(GameMode mode)
+        public async void StartGame(GameMode mode)
         {
             // Create the Fusion runner and let it know that we will be providing user input
             _runner = gameObject.AddComponent<NetworkRunner>();
@@ -79,11 +39,13 @@ namespace Game.Scripts.Fusion
                 //Scene = scene,
                 SceneManager = gameObject.AddComponent<NetworkSceneManagerDefault>()
             });
+
         }
 
         private void HandleShutdown()
         {
             SceneManager.LoadScene(0);
+            GameManager.Instance.ChangeState(new MainMenuState());
         }
 
 
