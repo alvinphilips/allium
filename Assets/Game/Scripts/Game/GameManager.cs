@@ -13,22 +13,22 @@ namespace Game.Scripts.Game
     [System.Serializable]
     public class SaveData
     {
-        public DateTime startTime;
-        public DateTime endTime;
-        public TimeSpan duration;
+        public string startTime;
+        public string endTime;
+        public double duration;
 
         public SaveData(DateTime sTime, DateTime eTime, TimeSpan dur)
         {
-            startTime = sTime;
-            endTime = eTime;
-            duration = dur;
+            startTime = $"{sTime}";
+            endTime = $"{eTime}";
+            duration = dur.Seconds;
         }
     }
 
     [System.Serializable]
     public class SaveDataList
     {
-        public List<SaveData> gameSessions = new List<SaveData>();
+        public List<SaveData> DataList;
     }
 
     public class GameManager : Singleton<GameManager>
@@ -36,7 +36,7 @@ namespace Game.Scripts.Game
         private DateTime _sessionStartTime;
         private DateTime _sessionEndTime;
 
-        SaveDataList dataList;
+        SaveDataList dataList = new SaveDataList();
         private string savePath;
 
         private readonly Stack<IState<GameManager>> _stateHistory = new Stack<IState<GameManager>>();
@@ -48,10 +48,14 @@ namespace Game.Scripts.Game
 
         private void Start()
         {
+           
             _sessionStartTime = DateTime.Now;
             Debug.Log($"Game session started at {_sessionStartTime}.");
 
             savePath = Path.Combine(Application.persistentDataPath, "SaveData.json");
+
+            print(savePath);
+            
             LoadData();
 
             ChangeState(new MainMenuState());
@@ -66,7 +70,7 @@ namespace Game.Scripts.Game
             Debug.Log($"Game session ended at {_sessionEndTime}.");
             Debug.Log($"Game session lasted {sessionLength}.");
 
-            dataList.gameSessions.Add(new SaveData(_sessionStartTime, _sessionEndTime, sessionLength));
+            dataList.DataList.Add(new SaveData(_sessionStartTime, _sessionEndTime, sessionLength));
 
             SerializeData();
         }
@@ -125,8 +129,9 @@ namespace Game.Scripts.Game
         }
 
         private void SerializeData()
-        {
+        {   
             string json = JsonUtility.ToJson(dataList);
+            print(json);
             File.WriteAllText(savePath, json);
         }
 
