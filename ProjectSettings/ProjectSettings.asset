@@ -803,6 +803,7 @@ PlayerSettings:
   webGLMemoryGeometricGrowthCap: 96
   webGLPowerPreference: 2
   scriptingDefineSymbols:
+    Standalone: FUSION_WEAVER;FUSION2
     iPhone: UNITY_XR_ARKIT_LOADER_ENABLED;FUSION_WEAVER;FUSION2
   additionalCompilerArguments: {}
   platformArchitecture: {}

@@ -18,8 +18,10 @@ namespace Game.Scripts.Game
 
         ResourceManager resourceManager;
 
-        private void Start()
+        public void Start()
         {
+            base.Start();
+
             resourceManager = ResourceManager.Instance;
 
             //Manipulate Gen Quantity and Frequency based on level

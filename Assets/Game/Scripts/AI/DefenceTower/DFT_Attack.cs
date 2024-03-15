@@ -36,8 +36,12 @@ public class DFT_Attack : DFT_BaseState
             if(distanceToTarget > defenceTower.range)
             {
                 defenceTower.target = null;
-                fsm.ChangeState(DFT_SeekTarget);
+                
             }
+        }
+        else
+        {
+            fsm.ChangeState(DFT_SeekTarget);
         }
 
     }

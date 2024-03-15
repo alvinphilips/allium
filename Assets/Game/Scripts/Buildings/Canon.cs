@@ -9,6 +9,8 @@ public class Canon : DefenceTower
 
     public override void Fire()
     {
+        Debug.Log("Firing");
+
         Projectile p = GameObject.Instantiate(projectilePrefab).GetComponent<Projectile>();
         p.transform.position = projectileFirePos.position;
         p.transform.rotation = projectileFirePos.rotation;
@@ -19,6 +21,8 @@ public class Canon : DefenceTower
     public override Transform GetTarget()
     {
         Collider[] colliders = Physics.OverlapSphere(transform.position, range, targetLayer);
+        
+        Debug.Log($"Canon Checking for Targets {colliders.Length}");
 
         if (colliders.Length > 0)
         {
@@ -26,12 +30,13 @@ public class Canon : DefenceTower
             {
                 if (collider.tag == "Enemy") 
                 {
+
                     target = collider.gameObject.transform;
                     return target;
                 }
             }
         }
 
-        return base.GetTarget();
+        return null;
     }
 }

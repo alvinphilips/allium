@@ -22,7 +22,9 @@ public class Projectile : MonoBehaviour
 
     private void Update()
     {
-        transform.Translate(transform.forward * projectileSpeed);
+        //transform.Translate;
+
+        transform.position += transform.forward * projectileSpeed * Time.deltaTime;
 
         float distance = Vector3.Distance(transform.position, startPos);
 
@@ -48,5 +50,6 @@ public class Projectile : MonoBehaviour
     {
         //PlayFx
         //Destroy Object or make it poolable
+        Destroy(gameObject);
     }
 }
