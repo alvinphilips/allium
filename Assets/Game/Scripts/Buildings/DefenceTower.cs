@@ -6,15 +6,29 @@ using UnityEngine;
 public class DefenceTower : Buildings
 {
     [SerializeField]
-    protected int range;
+    public int range;
+    
     [SerializeField]
-    protected int damage;
+    public int damage;
+    
     [SerializeField]
-    protected float rotSpeed;
-    [SerializeField]
-    protected Transform turretTop;
+    public Transform projectileFirePos;
 
-    Transform target;
+    [SerializeField]
+    public Transform turretTransform;
+
+    [SerializeField]
+    public float turretRotateSpeed = 10f;
+
+    public float fireDelay = 2f;
+
+    [SerializeField] 
+    public LayerMask targetLayer;
+
+    public Transform target;
+
+    //Angle within which turret can fire
+    public float fireThreshould;
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +39,11 @@ public class DefenceTower : Buildings
     public virtual void Fire()
     {
 
+    }
+
+    public void RotateTurret(Quaternion rotation)
+    {
+        turretTransform.rotation = rotation;  
     }
 
     public virtual Transform GetTarget()

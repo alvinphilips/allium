@@ -12,17 +12,10 @@ public interface IDestroyable
 
     public UnityEvent<GameObject> OnObjectDestroyed { get; set; }
 
-    public virtual void Damage(float damage)
-    {
-        Health -= damage * DamageMultipyer;
-        if (Health <= 0)
-            DestroyObject();
-    }
+    public void Damage(float damage);
 
-    public virtual void DestroyObject()
-    {
-        OnObjectDestroyed?.Invoke(owner);
-        GameObject.Destroy(owner);
-    }
+
+    public void DestroyObject();
+    
 
 }
