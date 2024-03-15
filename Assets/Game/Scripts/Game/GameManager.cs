@@ -147,9 +147,9 @@ namespace Game.Scripts.Game
 
         public void LeaveGame()
         {
-            if (FusionManager.Instance._runner != null)
+            if (FusionManager.Instance.runner != null)
             {
-                FusionManager.Instance._runner.Shutdown();
+                FusionManager.Instance.runner.Shutdown();
             }
         }
 

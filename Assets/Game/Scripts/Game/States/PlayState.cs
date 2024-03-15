@@ -12,11 +12,10 @@ namespace Game.Scripts.Game.States
     
         public void OnUpdate(GameManager state) 
         {
-            Debug.Log("PlayStateUpdating");
-            if(Input.GetKeyDown(KeyCode.Escape))
-            {
-                GameManager.Instance.ChangeState(new PauseMenuState());
-            }
+            // if(Input.GetKeyDown(KeyCode.Escape))
+            // {
+            //     GameManager.Instance.ChangeState(new PauseMenuState());
+            // }
         }
     
         public void OnStateExit(GameManager state)

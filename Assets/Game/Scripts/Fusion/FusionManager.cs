@@ -1,27 +1,27 @@
 using System;
 using System.Collections.Generic;
-using Fusion;
-using Fusion.Sockets;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 using Game.Scripts.Game;
 using Game.Scripts.Game.States;
 using Game.Scripts.Patterns;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+using Fusion;
+using Fusion.Sockets;
 
 namespace Game.Scripts.Fusion
 {
     public class FusionManager : Singleton<FusionManager>, INetworkRunnerCallbacks
     {
-        public NetworkRunner _runner;
+        public NetworkRunner runner;
 
         [SerializeField] private NetworkPrefabRef _playerPrefab;
-        private Dictionary<PlayerRef, NetworkObject> _spawnedCharacters = new Dictionary<PlayerRef, NetworkObject>();
+        private readonly Dictionary<PlayerRef, NetworkObject> _spawnedCharacters = new Dictionary<PlayerRef, NetworkObject>();
 
         public async void StartGame(GameMode mode)
         {
             // Create the Fusion runner and let it know that we will be providing user input
-            _runner = gameObject.AddComponent<NetworkRunner>();
-            _runner.ProvideInput = true;
+            runner = gameObject.AddComponent<NetworkRunner>();
+            runner.ProvideInput = true;
 
             // Create the NetworkSceneInfo from the current scene
             var scene = SceneRef.FromIndex(SceneManager.GetActiveScene().buildIndex);
@@ -32,7 +32,7 @@ namespace Game.Scripts.Fusion
             //}
 
             // Start or join (depends on gamemode) a session with a specific name
-            await _runner.StartGame(new StartGameArgs()
+            await runner.StartGame(new StartGameArgs()
             {
                 GameMode = mode,
                 SessionName = "TestRoom",
@@ -104,11 +104,11 @@ namespace Game.Scripts.Fusion
         {
             Debug.Log($"{player.PlayerId} joined!");
 
-            if (_runner.IsServer)
+            if (this.runner.IsServer)
             {
                 // Create a unique position for the player
                 Vector3 spawnPosition = new Vector3((player.RawEncoded % runner.Config.Simulation.PlayerCount) * 3, 1, 0);
-                NetworkObject networkPlayerObject = _runner.Spawn(_playerPrefab, spawnPosition, Quaternion.identity, player);
+                NetworkObject networkPlayerObject = this.runner.Spawn(_playerPrefab, spawnPosition, Quaternion.identity, player);
                 // Keep track of the player avatars for easy access
                 _spawnedCharacters.Add(player, networkPlayerObject);
             }
