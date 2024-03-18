@@ -93,6 +93,10 @@ namespace Game.Scripts.Game
 
         private void Update()
         {
+            if (Input.GetKey(KeyCode.Escape))
+            {
+                ChangeState(new OptionsMenuState(), true);
+            }
             _currentState?.OnUpdate(this);
         }
 
