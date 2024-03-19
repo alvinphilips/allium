@@ -57,6 +57,18 @@ namespace Game.Scripts.Audio
             }
         }
 
+        public void LoadMusic(AudioObject music)
+        {
+            musicList.Add(music);
+            _audioLookup.TryAdd(music.Id, music);
+        }
+        
+        public void LoadSfx(AudioObject sfx)
+        {
+            sfxList.Add(sfx);
+            _audioLookup.TryAdd(sfx.Id, sfx);
+        }
+        
         public bool PlaySound(string sfxName)
         {
             if (PlaySound(sfxName.GetHashCode()))

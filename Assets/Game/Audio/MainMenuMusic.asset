@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bfcfc261c135124b8c9b4e24e3b8f2d, type: 3}
   m_Name: MainMenuMusic
   m_EditorClassIdentifier: 
-  clipName: 
-  clip: {fileID: 0}
+  clipName: BGM
+  clip: {fileID: 8300000, guid: 2a1aa5726351666488d2281a3f9f34f5, type: 3}
   volume: 1
   loop: 1
-  pitch: 0
+  pitch: 1
