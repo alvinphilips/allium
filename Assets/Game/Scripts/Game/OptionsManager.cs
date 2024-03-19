@@ -1,3 +1,4 @@
+using System;
 using Game.Scripts.Audio;
 using Game.Scripts.Patterns;
 using UnityEngine;
@@ -6,9 +7,25 @@ namespace Game.Scripts.Game
 {
     public class OptionsManager : Singleton<OptionsManager>
     {
-        public float MasterVolume { get; private set; }
-        public float MusicVolume { get; private set; }
-        public float SfxVolume { get; private set; }
+        private void Start()
+        {
+            LoadAudioSettings();
+            LoadResolution();
+            LoadIsFullscreen();
+            LoadQualityLevel();
+        }
+
+        private void OnDestroy()
+        {
+            SaveResolution(GameResolution.width, GameResolution.height);
+            SaveAudioSettings(MasterVolume, MusicVolume, SfxVolume);
+            SaveIsFullscreen(IsFullscreen);
+            SaveQualityLevel(QualityLevel);
+        }
+
+        public float MasterVolume { get; private set; } = 1;
+        public float MusicVolume { get; private set; } = 1;
+        public float SfxVolume { get; private set; } = 1;
 
         public bool IsFullscreen { get; private set; }
 

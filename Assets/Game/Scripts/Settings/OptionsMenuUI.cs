@@ -31,10 +31,10 @@ namespace Game.Scripts.Settings
         private void Awake()
         {
             SubscribeToEvents();
-            InitializeUIComponents();
             LoadResolutions();
+            LoadQualityLevels();
             LoadCurrentUISettings();
-            
+            InitializeUIComponents();
             ToggleOptionsMenuVisibility(false);
         }
 
@@ -106,11 +106,11 @@ namespace Game.Scripts.Settings
         }
 
         private void LoadCurrentUISettings()
-        {
+        {;
             masterVolumeSlider.value = OptionsManager.Instance.MasterVolume;
             musicVolumeSlider.value = OptionsManager.Instance.MusicVolume;
             sfxVolumeSlider.value = OptionsManager.Instance.SfxVolume;
-
+            
             fullscreenToggle.isOn = OptionsManager.Instance.IsFullscreen;
 
             var currentResolutionIndex = Array.FindIndex(_resolutions, resolution => 
@@ -149,6 +149,18 @@ namespace Game.Scripts.Settings
             resolutionDropdown.AddOptions(options);
             resolutionDropdown.value = currentResolutionIndex;
             resolutionDropdown.RefreshShownValue();
+        }
+        
+        private void LoadQualityLevels()
+        {
+            var qualityLevels = new List<string>(QualitySettings.names);
+
+            var currentResolutionIndex = QualitySettings.GetQualityLevel();
+            
+            qualityDropdown.ClearOptions();
+            qualityDropdown.AddOptions(qualityLevels);
+            qualityDropdown.value = currentResolutionIndex;
+            qualityDropdown.RefreshShownValue();
         }
 
         public void ToggleOptionsMenuVisibility(bool visible)

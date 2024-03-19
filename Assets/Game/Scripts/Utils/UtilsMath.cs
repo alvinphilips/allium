@@ -4,7 +4,7 @@ namespace Game.Scripts.Utils
 {
     public static class UtilsMath
     {
-        private static float LinearToDecibel(float linear)
+        public static float LinearToDecibel(float linear)
         {
             return linear > 0 ? 20f * Mathf.Log10(linear) : -80f;
         }

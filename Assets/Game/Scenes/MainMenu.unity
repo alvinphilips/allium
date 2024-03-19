@@ -624,11 +624,11 @@ RectTransform:
   - {fileID: 119986199}
   m_Father: {fileID: 1219870501}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 100, y: -100}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -20, y: -20}
   m_SizeDelta: {x: 160, y: 30}
-  m_Pivot: {x: 0, y: 1}
+  m_Pivot: {x: 1, y: 1}
 --- !u!114 &176659003
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4336,6 +4336,10 @@ PrefabInstance:
       propertyPath: optionsMenu
       value: 
       objectReference: {fileID: 1219870500}
+    - target: {fileID: 4131086984086272957, guid: d8e5fd6f78128f94aa46e58f150aeba1, type: 3}
+      propertyPath: backGroundMusic.m_AssetGUID
+      value: 636b9a831ea455e489fb582defd3853d
+      objectReference: {fileID: 0}
     - target: {fileID: 4924159086410958131, guid: d8e5fd6f78128f94aa46e58f150aeba1, type: 3}
       propertyPath: m_Name
       value: GameManager
@@ -5267,7 +5271,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -5681,5 +5685,5 @@ SceneRoots:
   - {fileID: 1844374208}
   - {fileID: 1467436984}
   - {fileID: 1499104527}
-  - {fileID: 1262181871}
   - {fileID: 469808269}
+  - {fileID: 1262181871}
