@@ -157,13 +157,13 @@ MonoBehaviour:
   projectileFirePos: {fileID: 1298735564815902130}
   turretTransform: {fileID: 5574349454075285328}
   turretRotateSpeed: 10
-  fireDelay: 2
+  fireDelay: 0.5
   targetLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1
   target: {fileID: 0}
-  fireThreshould: 0
-  projectilePrefab: {fileID: 0}
+  fireThreshould: 1
+  projectilePrefab: {fileID: 243943490880181415, guid: 9c759b1777f24604280c5381306be593, type: 3}
 --- !u!114 &2221186749491528355
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -342,7 +342,7 @@ Transform:
   m_GameObject: {fileID: 6938703028125617077}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.75}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
