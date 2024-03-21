@@ -2,10 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Fusion;
+using Game.Scripts.Audio;
 using Game.Scripts.Fusion;
 using Game.Scripts.Game.States;
 using Game.Scripts.Patterns;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.SceneManagement;
 
 namespace Game.Scripts.Game
@@ -45,6 +48,12 @@ namespace Game.Scripts.Game
         public GameObject mainMenu;
         public GameObject pauseMenu;
         public GameObject optionsMenu;
+        
+        [SerializeField] private AssetReference backGroundMusic;
+
+        private AudioObject _bgm;
+
+        private bool _muteAudio;
 
         private void Start()
         {
@@ -53,6 +62,24 @@ namespace Game.Scripts.Game
 
             savePath = Path.Combine(Application.persistentDataPath, "SaveData.json");
             LoadData();
+
+            var handle = Addressables.LoadAssetAsync<AudioObject>(backGroundMusic.AssetGUID);
+            
+            handle.Completed += (op) =>
+            {
+                if (op.Status == AsyncOperationStatus.Succeeded)
+                {
+                    Debug.Log("Playing music");
+                    AudioManager.Instance.LoadMusic(op.Result);
+                    AudioManager.Instance.PlayMusic(op.Result.Id);
+
+                    _bgm = op.Result;
+                }
+                else
+                {
+                    Debug.LogError("Failed to load main menu music");
+                }
+            };
 
             ChangeState(new MainMenuState());
         }
@@ -93,6 +120,15 @@ namespace Game.Scripts.Game
 
         private void Update()
         {
+            if (Input.GetKey(KeyCode.Escape) || Input.GetKey(KeyCode.P))
+            {
+                ChangeState(new OptionsMenuState(), true);
+            }
+            if (Input.GetKeyDown(KeyCode.M))
+            {
+                _muteAudio = !_muteAudio;
+                AudioManager.Instance.MuteAll(_muteAudio);
+            }
             _currentState?.OnUpdate(this);
         }
 

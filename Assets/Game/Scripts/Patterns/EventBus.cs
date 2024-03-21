@@ -3,7 +3,7 @@ using UnityEngine.Events;
 
 namespace Game.Scripts.Patterns
 {
-    public class EventBus<T>
+    public static class EventBus<T>
     {
         private static readonly IDictionary<T, UnityEvent> Events = new Dictionary<T, UnityEvent>();
 
