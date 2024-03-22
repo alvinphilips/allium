@@ -20,7 +20,10 @@ namespace Game.Scripts.Fusion
         public async void StartGame(GameMode mode)
         {
             // Create the Fusion runner and let it know that we will be providing user input
-            runner = gameObject.AddComponent<NetworkRunner>();
+            if (runner == null && (runner = GetComponent<NetworkRunner>()) == null)
+            {
+                runner = gameObject.AddComponent<NetworkRunner>();
+            }
             runner.ProvideInput = true;
 
             // Create the NetworkSceneInfo from the current scene

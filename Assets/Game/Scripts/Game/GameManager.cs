@@ -147,7 +147,7 @@ namespace Game.Scripts.Game
         {
             if (GUILayout.Button("Next Scene"))
             {
-                SceneManager.LoadScene((SceneManager.GetActiveScene().buildIndex + 1) % SceneManager.sceneCount);
+                SceneManager.LoadScene((SceneManager.GetActiveScene().buildIndex + 1));
             }
         }
 
@@ -178,6 +178,7 @@ namespace Game.Scripts.Game
         public void JoinGame()
         {
             FusionManager.Instance.StartGame(GameMode.Client);
+            mainMenu.SetActive(false);
             ChangeState(new PlayState());
         }
 

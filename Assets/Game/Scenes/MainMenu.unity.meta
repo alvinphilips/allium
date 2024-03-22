@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Game/Scenes/MainMenu.unity.meta
 guid: 7cbc7b0ffb75545f2a192325476a19b2
+========
+guid: 6a1541c43f052e04da0deaacdcb0cecb
+>>>>>>>> add-config:Assets/Game/Scenes/Audio_Test.unity.meta
 DefaultImporter:
   externalObjects: {}
   userData: 
