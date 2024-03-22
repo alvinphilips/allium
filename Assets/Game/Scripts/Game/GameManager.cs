@@ -178,6 +178,7 @@ namespace Game.Scripts.Game
         public void JoinGame()
         {
             FusionManager.Instance.StartGame(GameMode.Client);
+            mainMenu.SetActive(false);
             ChangeState(new PlayState());
         }
 
