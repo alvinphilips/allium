@@ -7,24 +7,27 @@ using Game.Scripts.Game.States;
 using Game.Scripts.Patterns;
 using Fusion;
 using Fusion.Sockets;
+using UnityEngine.Serialization;
 
 namespace Game.Scripts.Fusion
 {
     public class FusionManager : Singleton<FusionManager>, INetworkRunnerCallbacks
     {
-        public NetworkRunner runner;
+        public NetworkRunner Runner { get; private set;  }
 
-        [SerializeField] private NetworkPrefabRef _playerPrefab;
+        [FormerlySerializedAs("_playerPrefab")] [SerializeField] private NetworkPrefabRef playerPrefab;
         private readonly Dictionary<PlayerRef, NetworkObject> _spawnedCharacters = new Dictionary<PlayerRef, NetworkObject>();
 
         public async void StartGame(GameMode mode)
         {
-            // Create the Fusion runner and let it know that we will be providing user input
-            if (runner == null && (runner = GetComponent<NetworkRunner>()) == null)
+            // Destroy the previous NetworkRunner, if one exists
+            if (TryGetComponent<NetworkRunner>(out var runner))
             {
-                runner = gameObject.AddComponent<NetworkRunner>();
+                Destroy(runner);
             }
-            runner.ProvideInput = true;
+
+            Runner = gameObject.AddComponent<NetworkRunner>();
+            Runner.ProvideInput = true;
 
             // Create the NetworkSceneInfo from the current scene
             var scene = SceneRef.FromIndex(SceneManager.GetActiveScene().buildIndex);
@@ -35,10 +38,9 @@ namespace Game.Scripts.Fusion
             //}
 
             // Start or join (depends on gamemode) a session with a specific name
-            await runner.StartGame(new StartGameArgs()
+            await Runner.StartGame(new StartGameArgs()
             {
                 GameMode = mode,
-                SessionName = "TestRoom",
                 //Scene = scene,
                 SceneManager = gameObject.AddComponent<NetworkSceneManagerDefault>()
             });
@@ -47,6 +49,8 @@ namespace Game.Scripts.Fusion
 
         private void HandleShutdown()
         {
+            Runner.Shutdown();
+            Destroy(Runner);
             SceneManager.LoadScene(0);
             GameManager.Instance.ChangeState(new MainMenuState());
         }
@@ -93,28 +97,21 @@ namespace Game.Scripts.Fusion
             Debug.Log($"{player.PlayerId} OnInputMissing");
         }
 
-        public void OnObjectEnterAOI(NetworkRunner runner, NetworkObject obj, PlayerRef player)
-        {
-            Debug.Log($"");
-        }
+        public void OnObjectEnterAOI(NetworkRunner runner, NetworkObject obj, PlayerRef player) { }
 
-        public void OnObjectExitAOI(NetworkRunner runner, NetworkObject obj, PlayerRef player)
-        {
-            Debug.Log($"");
-        }
+        public void OnObjectExitAOI(NetworkRunner runner, NetworkObject obj, PlayerRef player) { }
 
         public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
         {
             Debug.Log($"{player.PlayerId} joined!");
 
-            if (this.runner.IsServer)
-            {
-                // Create a unique position for the player
-                Vector3 spawnPosition = new Vector3((player.RawEncoded % runner.Config.Simulation.PlayerCount) * 3, 1, 0);
-                NetworkObject networkPlayerObject = this.runner.Spawn(_playerPrefab, spawnPosition, Quaternion.identity, player);
-                // Keep track of the player avatars for easy access
-                _spawnedCharacters.Add(player, networkPlayerObject);
-            }
+            if (!Runner.IsServer) return;
+            
+            // Create a unique position for the player
+            var spawnPosition = new Vector3((player.RawEncoded % runner.Config.Simulation.PlayerCount) * 3, 1, 0);
+            var networkPlayerObject = Runner.Spawn(playerPrefab, spawnPosition, Quaternion.identity, player);
+            // Keep track of the player avatars for easy access
+            _spawnedCharacters.Add(player, networkPlayerObject);
         }
 
         public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
@@ -128,15 +125,9 @@ namespace Game.Scripts.Fusion
             }
         }
 
-        public void OnReliableDataProgress(NetworkRunner runner, PlayerRef player, ReliableKey key, float progress)
-        {
-            Debug.Log($"");
-        }
+        public void OnReliableDataProgress(NetworkRunner runner, PlayerRef player, ReliableKey key, float progress) { }
 
-        public void OnReliableDataReceived(NetworkRunner runner, PlayerRef player, ReliableKey key, ArraySegment<byte> data)
-        {
-            Debug.Log($"");
-        }
+        public void OnReliableDataReceived(NetworkRunner runner, PlayerRef player, ReliableKey key, ArraySegment<byte> data) { }
 
         public void OnSceneLoadDone(NetworkRunner runner)
         {
@@ -148,10 +139,7 @@ namespace Game.Scripts.Fusion
             Debug.Log($"OnSceneLoadStart");
         }
 
-        public void OnSessionListUpdated(NetworkRunner runner, List<SessionInfo> sessionList)
-        {
-            Debug.Log($"");
-        }
+        public void OnSessionListUpdated(NetworkRunner runner, List<SessionInfo> sessionList) { }
 
         public void OnShutdown(NetworkRunner runner, ShutdownReason shutdownReason)
         {
@@ -159,10 +147,7 @@ namespace Game.Scripts.Fusion
             HandleShutdown();
         }
 
-        public void OnUserSimulationMessage(NetworkRunner runner, SimulationMessagePtr message)
-        {
-            Debug.Log($"");
-        }
+        public void OnUserSimulationMessage(NetworkRunner runner, SimulationMessagePtr message) { }
         #endregion  
     }
 }

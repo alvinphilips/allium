@@ -168,7 +168,6 @@ namespace Game.Scripts.Game
 
         #region Menu Functions
 
-        //Bind this to UI Buttons
         public void CreateGame()
         {
             FusionManager.Instance.StartGame(GameMode.Host);
@@ -178,15 +177,14 @@ namespace Game.Scripts.Game
         public void JoinGame()
         {
             FusionManager.Instance.StartGame(GameMode.Client);
-            mainMenu.SetActive(false);
             ChangeState(new PlayState());
         }
 
         public void LeaveGame()
         {
-            if (FusionManager.Instance.runner != null)
+            if (FusionManager.Instance.Runner != null)
             {
-                FusionManager.Instance.runner.Shutdown();
+                FusionManager.Instance.Runner.Shutdown();
             }
         }
 
