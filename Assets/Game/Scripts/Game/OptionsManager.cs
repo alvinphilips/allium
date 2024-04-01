@@ -13,6 +13,8 @@ namespace Game.Scripts.Game
             LoadResolution();
             LoadIsFullscreen();
             LoadQualityLevel();
+            
+            Screen.SetResolution(GameResolution.width, GameResolution.height, IsFullscreen);
         }
 
         private void OnDestroy()
@@ -99,7 +101,7 @@ namespace Game.Scripts.Game
             ApplySettings();
         }
 
-        public void ApplySettings()
+        private void ApplySettings()
         {
             AudioListener.volume = MasterVolume;
             AudioManager.Instance.SetMusicVolume(MusicVolume);

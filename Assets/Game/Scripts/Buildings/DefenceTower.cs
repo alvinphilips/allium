@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //Base class for all defence structures, can have gun / tank with different target types and fire logic 
-public class DefenceTower : Buildings
+public class DefenceTower : Building
 {
     [SerializeField]
     public int range;

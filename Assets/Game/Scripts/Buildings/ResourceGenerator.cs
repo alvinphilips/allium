@@ -1,11 +1,10 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using Game.Scripts.Game;
 using UnityEngine;
+using Resources = Game.Scripts.Game.Resources;
 
-namespace Game.Scripts.Game
+namespace Game.Scripts.Buildings
 {
-    public class ResourceGenerator : Buildings
+    public class ResourceGenerator : Building
     {
         [SerializeField]
         Resources resourceType;

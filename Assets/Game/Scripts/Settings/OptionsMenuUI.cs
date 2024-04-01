@@ -107,9 +107,9 @@ namespace Game.Scripts.Settings
 
         private void LoadCurrentUISettings()
         {;
-            masterVolumeSlider.value = OptionsManager.Instance.MasterVolume;
-            musicVolumeSlider.value = OptionsManager.Instance.MusicVolume;
-            sfxVolumeSlider.value = OptionsManager.Instance.SfxVolume;
+            masterVolumeSlider.SetValueWithoutNotify(OptionsManager.Instance.MasterVolume);
+            musicVolumeSlider.SetValueWithoutNotify(OptionsManager.Instance.MusicVolume);
+            sfxVolumeSlider.SetValueWithoutNotify(OptionsManager.Instance.SfxVolume);
             
             fullscreenToggle.isOn = OptionsManager.Instance.IsFullscreen;
 

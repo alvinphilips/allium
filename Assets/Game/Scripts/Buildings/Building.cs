@@ -10,7 +10,7 @@ public enum BuildingTypes
     UnitSpawn
 }
 
-public class Buildings : MonoBehaviour, IDestroyable
+public class Building : MonoBehaviour, IDestroyable
 {
     protected BuildingTypes buildingType = BuildingTypes.ResourceGeneration;
 
@@ -31,8 +31,11 @@ public class Buildings : MonoBehaviour, IDestroyable
     public void Damage(float damage)
     {
         Health -= damage * DamageMultipyer;
+        
         if (Health <= 0)
+        {
             DestroyObject();
+        }
     }
 
     public void DestroyObject()

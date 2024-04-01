@@ -14,9 +14,20 @@ namespace Game.Scripts.Game
 
     public class ResourceManager : Singleton<ResourceManager>
     {
-        int Money = 0;
-        int Troops = 0;
+        private Dictionary<Resources, int> _resources;
 
+        private int Money
+        {
+            get => _resources[Resources.Money];
+            set => _resources[Resources.Money] = value;
+        }
+        
+        private int Troops
+        {
+            get => _resources[Resources.Troops];
+            set => _resources[Resources.Troops] = value;
+        }
+        
         public int GetMoney() { return Money; }
 
         public void AddMoney(int val)
@@ -24,7 +35,7 @@ namespace Game.Scripts.Game
             Money += val;
         }
 
-        public int GetTroops() { return Money; }
+        public int GetTroops() { return Troops; }
 
         public void AddTroops()
         {
