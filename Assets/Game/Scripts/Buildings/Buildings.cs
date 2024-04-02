@@ -19,7 +19,7 @@ public class Buildings : MonoBehaviour, IDestroyable
     public float Health { get; set; }
     public float DamageMultipyer { get; set; }
     public GameObject owner { get; set; }
-    public UnityEvent<GameObject> OnObjectDestroyed { get; set; }
+    UnityEvent<GameObject> IDestroyable.OnObjectDestroyed { get; set; }
 
     public void Start()
     {
@@ -28,16 +28,16 @@ public class Buildings : MonoBehaviour, IDestroyable
         owner = gameObject;
     }
 
-    public void Damage(float damage)
+    void IDestroyable.Damage(float damage)
     {
         Health -= damage * DamageMultipyer;
         if (Health <= 0)
-            DestroyObject();
+            ((IDestroyable)this).DestroyObject();
     }
 
-    public void DestroyObject()
+    void IDestroyable.DestroyObject()
     {
-        OnObjectDestroyed?.Invoke(owner);
+        ((IDestroyable)this).OnObjectDestroyed?.Invoke(owner);
         GameObject.Destroy(owner);
     }
 }

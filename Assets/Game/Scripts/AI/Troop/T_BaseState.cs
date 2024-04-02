@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class T_BaseState : FSMBaseState<TroopFSM>
 {
-    
+    protected Troop troop;
 }

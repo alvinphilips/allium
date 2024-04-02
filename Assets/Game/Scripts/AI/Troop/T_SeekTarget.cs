@@ -4,15 +4,11 @@ using UnityEngine;
 
 public class T_SeekTarget : T_BaseState
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (t.GetTarget() != null)
+        {
+            fsm.ChangeState(DFT_Attack);
+        }
     }
 }
