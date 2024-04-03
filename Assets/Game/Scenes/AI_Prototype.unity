@@ -917,6 +917,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1066038169}
+  - component: {fileID: 1066038170}
+  - component: {fileID: 1066038171}
   m_Layer: 0
   m_Name: Tank
   m_TagString: Untagged
@@ -941,6 +943,43 @@ Transform:
   - {fileID: 1373954256}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1066038170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1066038168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0cb539f1ec73294691dc4c2ce1d0474, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  range: 15
+  damage: 10
+  projectileFirePos: {fileID: 486312715}
+  turretTransform: {fileID: 1373954256}
+  turretRotateSpeed: 10
+  fireDelay: 2
+  targetLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  fireThreshould: 10
+  projectilePrefab: {fileID: 243943490880181415, guid: 9c759b1777f24604280c5381306be593, type: 3}
+--- !u!114 &1066038171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1066038168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95c147d62ea99e24cb3e204d21096ee8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FSMController: {fileID: 9100000, guid: 93119a43df810d344a900ba097ba16c0, type: 2}
 --- !u!1 &1373954255
 GameObject:
   m_ObjectHideFlags: 0

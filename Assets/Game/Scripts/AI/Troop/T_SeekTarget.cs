@@ -6,9 +6,11 @@ public class T_SeekTarget : T_BaseState
 {
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (t.GetTarget() != null)
+        troop.target = troop.GetTarget();
+
+        if (troop.target != null)
         {
-            fsm.ChangeState(DFT_Attack);
+            fsm.ChangeState(T_ApproachTarget);
         }
     }
 }

@@ -17,6 +17,8 @@ public class SteeringAgent : MonoBehaviour {
         Prioritized
     };
 
+    public Vector3 target = Vector3.zero;
+
     public SummingMethod summingMethod = SummingMethod.Weighted;
 
     public float mass = 1f;
@@ -44,6 +46,16 @@ public class SteeringAgent : MonoBehaviour {
         }
     }
 
+    public void SetTarget(Vector3 destination)
+    {
+        target = destination;
+    }
+
+    public void ResetTarget()
+    {
+        target = Vector3.zero;
+    }
+
     private void Update()
     {
         Vector3 steeringForce = CalculateSteeringForce();
@@ -53,6 +65,7 @@ public class SteeringAgent : MonoBehaviour {
         if(bReachedGoal)
         {
             velocity = Vector3.zero;
+            ResetTarget();
         }
         else
         {

@@ -6,7 +6,7 @@ public abstract class SteeringBehviourBase : MonoBehaviour
 {
 
     public float weight = 1f;
-    public Vector3 target = Vector3.zero;
+    
     public bool bUseMouseInput = true;
 
     public abstract Vector3 CalculateForce();

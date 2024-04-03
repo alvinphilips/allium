@@ -26,10 +26,10 @@ public abstract class FSM : MonoBehaviour
         }
     }
 
-    public bool ChangeState(string _stateName)
-    {
-        return ChangeState(Animator.StringToHash(_stateName));
-    }
+    //public bool ChangeState(string _stateName)
+    //{
+    //    return ChangeState(Animator.StringToHash(_stateName));
+    //}
 
     public bool ChangeState(int _stateName)
     {

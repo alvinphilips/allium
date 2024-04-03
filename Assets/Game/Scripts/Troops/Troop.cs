@@ -8,10 +8,18 @@ public class Troop : MonoBehaviour, IDestroyable
 
     public Transform target;
 
+    [SerializeField]
+    public int range;
+
+    [SerializeField]
+    public int damage;
+
     public float Health { get; set; }
     public float DamageMultipyer { get; set; }
     public GameObject owner { get; set; }
     UnityEvent<GameObject> IDestroyable.OnObjectDestroyed { get; set; }
+
+    public float fireDelay = 2f;
 
     public void Start()
     {

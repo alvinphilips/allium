@@ -61,7 +61,7 @@ public class PlacementHandler : Singleton<PlacementHandler>
         float closestDist = 100;
         foreach (GameObject target in possibleTargets)
         {
-            float dist = Vector3.Distance(SrcPos, target.transform.position)
+            float dist = Vector3.Distance(SrcPos, target.transform.position);
             if(dist <= range && closestDist > dist)
             {
                 closestTarget = target;
