@@ -1,55 +1,54 @@
-using System.Collections;
-using System.Collections.Generic;
+using Fusion;
 using UnityEngine;
 
-//Projectile that can be used by multiple things
-public class Projectile : MonoBehaviour
+namespace Game.Scripts
 {
-    float damage = 0f;
-    float range = 0f;
-
-    public float projectileSpeed = 5f;
-
-    Vector3 startPos;
-
-    public void SetProjectile(float damage, float range)
+    public class Projectile : NetworkBehaviour
     {
-        this.damage = damage;
-        this.range = range;
+        public float Damage { get; set; }
+        public float Range { get; set; }
 
-        startPos = transform.position;
-    }
+        public float Velocity { get; set; }
 
-    private void Update()
-    {
-        //transform.Translate;
+        private Vector3 StartPos { set; get; }
 
-        transform.position += transform.forward * projectileSpeed * Time.deltaTime;
-
-        float distance = Vector3.Distance(transform.position, startPos);
-
-        if (distance > range)
+        public void Start()
         {
+            if (Object.HasStateAuthority)
+            {
+                StartPos = transform.position;
+            }
+        }
+
+        public override void FixedUpdateNetwork()
+        {
+            if (!Object.HasStateAuthority) return;
+
+            transform.position += transform.forward * Velocity * Time.deltaTime;
+
+            var distanceSqr = Vector3.SqrMagnitude(transform.position - StartPos);
+
+            if (distanceSqr > Range * Range)
+            {
+                DestroyProjectile();
+            }
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (!Object.HasStateAuthority) return;
+
+            if(other.TryGetComponent<IDestroyable>(out var destroyable))
+            {
+                destroyable.Damage(Damage);
+            }
+
             DestroyProjectile();
         }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        IDestroyable destroyable;
-
-        if(other.TryGetComponent<IDestroyable>(out destroyable))
+        
+        private void DestroyProjectile()
         {
-            destroyable.Damage(damage);
+            Destroy(gameObject);
         }
-
-        DestroyProjectile();
-    }
-
-    void DestroyProjectile()
-    {
-        //PlayFx
-        //Destroy Object or make it poolable
-        Destroy(gameObject);
     }
 }

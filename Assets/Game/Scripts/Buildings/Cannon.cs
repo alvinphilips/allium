@@ -14,7 +14,8 @@ namespace Game.Scripts.Buildings
             Projectile p = GameObject.Instantiate(projectilePrefab).GetComponent<Projectile>();
             p.transform.position = projectileFirePos.position;
             p.transform.rotation = projectileFirePos.rotation;
-            p.SetProjectile(damage, range);
+            p.Damage = damage;
+            p.Range = range;
 
         }
 
