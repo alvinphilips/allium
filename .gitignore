@@ -73,3 +73,6 @@ crashlytics-build.properties
 
 # JetBrains stuff
 .idea/
+
+# Other stuff
+.DS_Store
