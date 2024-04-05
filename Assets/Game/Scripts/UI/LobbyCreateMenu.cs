@@ -11,10 +11,16 @@ namespace Game.Scripts.UI
         [SerializeField] private StyleSheet style;
 
         private bool _hideFullGames = true;
+
+        private void OnEnable()
+        {
+            FusionManager.Instance.onSessionListUpdatedCallbacks.AddListener(() => StartCoroutine(Generate()));
+        }
         
         protected override IEnumerator Generate()
         {
             yield return null;
+            
             var root = Document.rootVisualElement;
             root.Clear();
             root.styleSheets.Add(style);
@@ -49,7 +55,7 @@ namespace Game.Scripts.UI
             createLobbyButton.text = "Host Lobby";
             createLobbyButton.RegisterCallback<ClickEvent>(async evt =>
             {
-                await FusionManager.Instance.HostLobby("uwu");
+                await FusionManager.Instance.CreateSession("uwu-" + Random.Range(1000, 5000));
                 RefreshUI = true;
             });
         }

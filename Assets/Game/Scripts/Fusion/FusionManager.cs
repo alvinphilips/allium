@@ -3,13 +3,10 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Game.Scripts.Game;
-using Game.Scripts.Game.States;
 using Game.Scripts.Patterns;
 using Fusion;
 using Fusion.Sockets;
 using UnityEngine.Events;
-using UnityEngine.Serialization;
 
 namespace Game.Scripts.Fusion
 {
@@ -20,26 +17,49 @@ namespace Game.Scripts.Fusion
         [SerializeField] private NetworkPrefabRef playerPrefab;
         private readonly Dictionary<PlayerRef, NetworkObject> _spawnedCharacters = new Dictionary<PlayerRef, NetworkObject>();
 
-        public readonly UnityAction<List<SessionInfo>> OnSessionListChange = default;
+        public UnityEvent onSessionListUpdatedCallbacks;
+        
         public List<SessionInfo> SessionList { get; private set; } = new();
 
-        private void Start()
+        private new void Awake()
         {
+            base.Awake();
+            
             if (TryGetComponent<NetworkRunner>(out var runner))
             {
+                runner.Shutdown();
                 Destroy(runner);
             }
 
             Runner = gameObject.AddComponent<NetworkRunner>();
         }
+
+        private void Start()
+        {
+            if (Runner == null) Runner = gameObject.AddComponent<NetworkRunner>();
+            JoinLobby();
+        }
+
+        private async void JoinLobby()
+        {
+            var result = await Runner.JoinSessionLobby(SessionLobby.ClientServer);
+
+            if (!result.Ok)
+            {
+                Debug.LogError($"Could not join session lobby {result.ShutdownReason}");
+            }
+            else
+            {
+                Debug.Log("Joined session lobby :)");
+            }
+        }
         
-        public async Task HostLobby(string lobbyName)
+        public async Task CreateSession(string sessionName)
         {
             var result = await Runner.StartGame(new StartGameArgs
             {
-                GameMode = GameMode.Host,
-                CustomLobbyName = lobbyName,
-                SessionName = lobbyName,
+                GameMode = GameMode.AutoHostOrClient,
+                SessionName = sessionName,
                 PlayerCount = 2
             });
 
@@ -80,24 +100,14 @@ namespace Game.Scripts.Fusion
             });
 
         }
-
-        private async Task JoinLobby(NetworkRunner runner, string lobbyId)
-        {
-            var result = await runner.JoinSessionLobby(SessionLobby.Custom, lobbyId);
-
-            if (!result.Ok)
-            {
-                Debug.LogError($"Failed to Join Lobby: {result.ShutdownReason}");
-            }
-        }
         
         private void HandleShutdown()
         {
             Runner.Shutdown();
             _spawnedCharacters.Clear();
             Destroy(Runner);
-            SceneManager.LoadScene(0);
-            GameManager.Instance.ChangeState(new MainMenuState());
+            // SceneManager.LoadScene(0);
+            // GameManager.Instance.ChangeState(new MainMenuState());
         }
 
 
@@ -188,10 +198,10 @@ namespace Game.Scripts.Fusion
         public void OnSessionListUpdated(NetworkRunner runner, List<SessionInfo> sessionList)
         {
             Debug.LogError("UWUW!");
-            OnSessionListChange.Invoke(sessionList);
             SessionList.Clear();
             SessionList = sessionList;
-            Debug.Log($"New Session Created. Total session count: {SessionList.Count}");
+            onSessionListUpdatedCallbacks?.Invoke();
+            Debug.Log($"Total session count: {sessionList.Count}");
         }
 
         public void OnShutdown(NetworkRunner runner, ShutdownReason shutdownReason)
