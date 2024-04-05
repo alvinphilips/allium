@@ -39,13 +39,17 @@ namespace Game.Scripts.Fusion
             {
                 GameMode = GameMode.Host,
                 CustomLobbyName = lobbyName,
+                SessionName = lobbyName,
                 PlayerCount = 2
             });
 
             if (!result.Ok)
             {
                 Debug.LogError($"Failed to Start Lobby: {result.ShutdownReason}");
+                return;
             }
+            
+            SessionList.Add(Runner.SessionInfo);
         }
         
         public async void StartGame(GameMode mode)
