@@ -48,6 +48,7 @@ public class SteeringAgent : MonoBehaviour {
 
     public void SetTarget(Vector3 destination)
     {
+        bReachedGoal = false;
         target = destination;
     }
 

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public abstract class SteeringBehviourBase : MonoBehaviour
 {
-
     public float weight = 1f;
     
     public bool bUseMouseInput = true;
@@ -27,7 +26,7 @@ public abstract class SteeringBehviourBase : MonoBehaviour
             RaycastHit hit;
             if(Physics.Raycast(ray, out hit, 100) )
             {
-                target = hit.point;
+                steeringAgent.target = hit.point;
                 bMouseClicked = true;
             }
         }
@@ -37,10 +36,10 @@ public abstract class SteeringBehviourBase : MonoBehaviour
     {
         if(steeringAgent != null)
         {
-            DebugExtension.DrawArrow(transform.position, target, Color.red);
+            DebugExtension.DrawArrow(transform.position, steeringAgent.target, Color.red);
             DebugExtension.DrawArrow(transform.position, steeringAgent.velocity, Color.blue);
+            DebugExtension.DrawPoint(steeringAgent.target, Color.magenta);
         }
 
-        DebugExtension.DrawPoint(target, Color.magenta);
     }
 }

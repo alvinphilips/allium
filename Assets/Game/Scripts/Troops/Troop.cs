@@ -17,11 +17,12 @@ public class Troop : MonoBehaviour, IDestroyable
     public float Health { get; set; }
     public float DamageMultipyer { get; set; }
     public GameObject owner { get; set; }
+
+    public float fireDelay;
+
     UnityEvent<GameObject> IDestroyable.OnObjectDestroyed { get; set; }
 
-    public float fireDelay = 2f;
-
-    public void Start()
+    protected virtual void Start()
     {
         Health = 50;
         DamageMultipyer = 1;
@@ -44,5 +45,15 @@ public class Troop : MonoBehaviour, IDestroyable
     public virtual Transform GetTarget()
     {
         return target;
+    }
+
+    public virtual void Aim(Quaternion rotation)
+    {
+       
+    }
+    
+    public virtual void Fire()
+    {
+        
     }
 }

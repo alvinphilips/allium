@@ -15,7 +15,7 @@ public class T_ApproachTarget : T_BaseState
 
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        steeringAgent.SetTarget(troop.target.position);
+        steeringAgent.SetTarget(tank.target.position);
     }
 
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -24,5 +24,10 @@ public class T_ApproachTarget : T_BaseState
         {
             fsm.ChangeState(T_Attack);
         }
+    }
+
+    public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        steeringAgent.ResetTarget();
     }
 }
