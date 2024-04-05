@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Game.Scripts.Game;
@@ -7,6 +8,7 @@ using Game.Scripts.Game.States;
 using Game.Scripts.Patterns;
 using Fusion;
 using Fusion.Sockets;
+using UnityEngine.Events;
 using UnityEngine.Serialization;
 
 namespace Game.Scripts.Fusion
@@ -15,9 +17,37 @@ namespace Game.Scripts.Fusion
     {
         public NetworkRunner Runner { get; private set;  }
 
-        [FormerlySerializedAs("_playerPrefab")] [SerializeField] private NetworkPrefabRef playerPrefab;
+        [SerializeField] private NetworkPrefabRef playerPrefab;
         private readonly Dictionary<PlayerRef, NetworkObject> _spawnedCharacters = new Dictionary<PlayerRef, NetworkObject>();
 
+        public readonly UnityAction<List<SessionInfo>> OnSessionListChange = default;
+        public List<SessionInfo> SessionList { get; private set; } = new();
+
+        private void Start()
+        {
+            if (TryGetComponent<NetworkRunner>(out var runner))
+            {
+                Destroy(runner);
+            }
+
+            Runner = gameObject.AddComponent<NetworkRunner>();
+        }
+        
+        public async Task HostLobby(string lobbyName)
+        {
+            var result = await Runner.StartGame(new StartGameArgs
+            {
+                GameMode = GameMode.Host,
+                CustomLobbyName = lobbyName,
+                PlayerCount = 2
+            });
+
+            if (!result.Ok)
+            {
+                Debug.LogError($"Failed to Start Lobby: {result.ShutdownReason}");
+            }
+        }
+        
         public async void StartGame(GameMode mode)
         {
             // Destroy the previous NetworkRunner, if one exists
@@ -47,9 +77,20 @@ namespace Game.Scripts.Fusion
 
         }
 
+        private async Task JoinLobby(NetworkRunner runner, string lobbyId)
+        {
+            var result = await runner.JoinSessionLobby(SessionLobby.Custom, lobbyId);
+
+            if (!result.Ok)
+            {
+                Debug.LogError($"Failed to Join Lobby: {result.ShutdownReason}");
+            }
+        }
+        
         private void HandleShutdown()
         {
             Runner.Shutdown();
+            _spawnedCharacters.Clear();
             Destroy(Runner);
             SceneManager.LoadScene(0);
             GameManager.Instance.ChangeState(new MainMenuState());
@@ -57,6 +98,7 @@ namespace Game.Scripts.Fusion
 
 
         #region Fusion Callbacks Interface Implementation
+        // ReSharper disable once Unity.IncorrectMethodSignature
         public void OnConnectedToServer(NetworkRunner runner)
         {
             Debug.Log($"{runner.name} connected to server!");
@@ -106,7 +148,7 @@ namespace Game.Scripts.Fusion
             Debug.Log($"{player.PlayerId} joined!");
 
             if (!Runner.IsServer) return;
-            
+            return;
             // Create a unique position for the player
             var spawnPosition = new Vector3((player.RawEncoded % runner.Config.Simulation.PlayerCount) * 3, 1, 0);
             var networkPlayerObject = Runner.Spawn(playerPrefab, spawnPosition, Quaternion.identity, player);
@@ -139,7 +181,14 @@ namespace Game.Scripts.Fusion
             Debug.Log($"OnSceneLoadStart");
         }
 
-        public void OnSessionListUpdated(NetworkRunner runner, List<SessionInfo> sessionList) { }
+        public void OnSessionListUpdated(NetworkRunner runner, List<SessionInfo> sessionList)
+        {
+            Debug.LogError("UWUW!");
+            OnSessionListChange.Invoke(sessionList);
+            SessionList.Clear();
+            SessionList = sessionList;
+            Debug.Log($"New Session Created. Total session count: {SessionList.Count}");
+        }
 
         public void OnShutdown(NetworkRunner runner, ShutdownReason shutdownReason)
         {
