@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class T_SeekTarget : T_BaseState
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        
-    }
+        tank.target = tank.GetTarget();
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (tank.target != null)
+        {
+            fsm.ChangeState(T_ApproachTarget);
+        }
     }
 }
