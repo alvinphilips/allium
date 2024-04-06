@@ -10,20 +10,21 @@ namespace Game.Scripts.UI
         protected UIDocument Document;
         public bool RefreshUI { get; set; }
         
-        // Start is called before the first frame update
-        private void Start()
+        protected void Start()
         {
+            Debug.Log("Awoogs");
             StartCoroutine(Generate());
         }
 
         private void Awake()
         {
             Document = GetComponent<UIDocument>();
+            MenuManager.Instance.RegisterMenu(this);
         }
 
         private void OnValidate()
         {
-            if (Application.isPlaying) return;
+            if (Application.isPlaying || !gameObject.activeInHierarchy) return;
 
             Document = GetComponent<UIDocument>();
             StartCoroutine(Generate());
@@ -52,6 +53,16 @@ namespace Game.Scripts.UI
             }
 
             return element;
+        }
+
+        public void Show()
+        {
+            gameObject.SetActive(true);
+        }
+
+        public void Hide()
+        {
+            gameObject.SetActive(false);
         }
     }
 }

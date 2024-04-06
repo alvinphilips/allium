@@ -6,15 +6,18 @@ using UnityEngine.UIElements;
 
 namespace Game.Scripts.UI
 {
-    public class LobbyCreateMenu : Menu
+    public class LobbyListMenu : Menu
     {
         [SerializeField] private StyleSheet style;
 
         private bool _hideFullGames = true;
 
-        private void OnEnable()
+        private new void Start()
         {
-            FusionManager.Instance.onSessionListUpdatedCallbacks.AddListener(() => StartCoroutine(Generate()));
+            base.Start();
+            
+            Debug.Log("Awooga 2: Electric Boogaloo");
+            FusionManager.Instance.onSessionListUpdatedCallbacks.AddListener(() => RefreshUI = true);
         }
         
         protected override IEnumerator Generate()
@@ -29,7 +32,7 @@ namespace Game.Scripts.UI
 
             var lobbyList = container.Create<ScrollView>("w-full");
             
-            var topBar = lobbyList.Create("bg-emerald-800", "p-4", "text-white");
+            var topBar = lobbyList.Create("bg-emerald-900", "p-4", "text-white");
             var hideFullGamesToggle = topBar.Create<Toggle>();
             hideFullGamesToggle.value = _hideFullGames;
             hideFullGamesToggle.RegisterCallback<ChangeEvent<bool>>(evt =>
@@ -51,12 +54,14 @@ namespace Game.Scripts.UI
             var foundLobbiesText = bottomBar.Create<Label>("px-4");
             foundLobbiesText.text =
                 $"Found {suitableLobbies}/{FusionManager.Instance.SessionList.Count} lobbies that meet search criteria.";
-            var createLobbyButton = bottomBar.Create<Button>("bg-emerald-800", "text-white", "p-4");
-            createLobbyButton.text = "Host Lobby";
+            var createLobbyButton = bottomBar.Create<Button>("bg-emerald-900", "text-white", "p-4");
+            createLobbyButton.text = "Host Game";
             createLobbyButton.RegisterCallback<ClickEvent>(async evt =>
             {
-                await FusionManager.Instance.CreateSession("uwu-" + Random.Range(1000, 5000));
-                RefreshUI = true;
+                var roomName = "uwu-" + Random.Range(1000, 5000);
+                await FusionManager.Instance.CreateSession(roomName);
+                MenuManager.Instance.inLobbyMenu.LobbyName = roomName;
+                MenuManager.Instance.ShowMenu(MenuManager.Instance.inLobbyMenu);
             });
         }
 
@@ -70,6 +75,11 @@ namespace Game.Scripts.UI
             var joinButton = item.Create<Button>("w-20", "p-4", "bg-emerald-800", "text-white", "joinButton", "h-full");
             joinButton.text = "Join";
             joinButton.SetEnabled(playerCount < maxPlayerCount);
+            joinButton.RegisterCallback<ClickEvent>(async evt =>
+            {
+                await FusionManager.Instance.JoinSession(lobbyName);
+                MenuManager.Instance.ShowMenu(MenuManager.Instance.inLobbyMenu);
+            });
             return item;
         }
     }

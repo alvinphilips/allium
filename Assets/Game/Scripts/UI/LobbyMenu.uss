@@ -19,6 +19,10 @@ Button {
     margin-left: 8px;
 } 
 
+.unity-text-field__input {
+    padding: 4px;
+}
+
 .bg-white {
     background-color: white;
 }
@@ -98,6 +102,10 @@ Button {
     border-color: var(--tw-emerald-900);
 }
 
+.bg-emerald-900 {
+    background-color: var(--tw-emerald-900);
+}
+
 .bg-emerald-800 {
     background-color: var(--tw-emerald-800);
 }
@@ -108,6 +116,22 @@ Button {
 
 .bg-emerald-600 {
     background-color: var(--tw-emerald-600);
+}
+
+.text-emerald-900 {
+    color: var(--tw-emerald-900);
+}
+
+.text-emerald-800 {
+    color: var(--tw-emerald-800);
+}
+
+.text-emerald-700 {
+    color: var(--tw-emerald-700);
+}
+
+.text-emerald-600 {
+    color: var(--tw-emerald-600);
 }
 
 .rounded-xl {
@@ -123,7 +147,11 @@ Button {
 }
 
 .w-20 {
-    
+    width: 80px;
+}
+
+.w-60 {
+    width: 240px;
 }
 
 .joinButton:hover {
