@@ -3,6 +3,7 @@ using UnityEngine;
 
 public interface IDestroyable
 {
+    public float Health { get; set; }
 
     public bool IsDead => Health <= 0;
 

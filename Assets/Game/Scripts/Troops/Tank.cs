@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
+using Game.Scripts;
 
 public class Tank : Troop
 {
@@ -46,6 +47,7 @@ public class Tank : Troop
         Projectile p = GameObject.Instantiate(projectilePrefab).GetComponent<Projectile>();
         p.transform.position = projectileFirePos.position;
         p.transform.rotation = projectileFirePos.rotation;
-        p.SetProjectile(damage, range);
+        p.Damage = damage;
+        p.Range = range;
     }
 }

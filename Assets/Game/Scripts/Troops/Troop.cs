@@ -14,13 +14,14 @@ public class Troop : MonoBehaviour, IDestroyable
     [SerializeField]
     public int damage;
 
-    public float Health { get; set; }
+    
     public float DamageMultipyer { get; set; }
     public GameObject owner { get; set; }
 
     public float fireDelay;
 
     UnityEvent<GameObject> IDestroyable.OnObjectDestroyed { get; set; }
+    public float Health { get => Health; set => Health = value; }
 
     protected virtual void Start()
     {
