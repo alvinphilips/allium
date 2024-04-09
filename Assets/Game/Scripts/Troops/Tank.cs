@@ -6,8 +6,6 @@ using Game.Scripts;
 
 public class Tank : Troop
 {
-    
-
     [SerializeField]
     public Transform projectileFirePos;
 

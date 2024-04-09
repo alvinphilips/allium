@@ -21,7 +21,7 @@ public class Troop : MonoBehaviour, IDestroyable
     public float fireDelay;
 
     UnityEvent<GameObject> IDestroyable.OnObjectDestroyed { get; set; }
-    public float Health { get => Health; set => Health = value; }
+    public float Health { get; set; }
 
     protected virtual void Start()
     {

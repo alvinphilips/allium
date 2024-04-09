@@ -13,10 +13,10 @@ public enum ObjectType
 
 public class PlacementHandler : Singleton<PlacementHandler>
 {
-    List<GameObject> resourceBldgs = new List<GameObject>();
-    List<GameObject> defenceBldgs = new List<GameObject>();
-    List<GameObject> troops = new List<GameObject>();
-    List<GameObject> tanks = new List<GameObject>();
+    [SerializeField] List<GameObject> resourceBldgs = new List<GameObject>();
+    [SerializeField] List<GameObject> defenceBldgs = new List<GameObject>();
+    [SerializeField] List<GameObject> troops = new List<GameObject>();
+    [SerializeField] List<GameObject> tanks = new List<GameObject>();
 
     public void AddObject(GameObject obj, ObjectType objectType)
     {
