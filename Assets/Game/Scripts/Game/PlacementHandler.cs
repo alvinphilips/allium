@@ -62,11 +62,27 @@ public class PlacementHandler : Singleton<PlacementHandler>
         foreach (GameObject target in possibleTargets)
         {
             float dist = Vector3.Distance(SrcPos, target.transform.position);
-            if(dist <= range && closestDist > dist)
+            if(closestDist > dist)
             {
                 closestTarget = target;
                 closestDist = dist;
             }
+        }
+
+        switch (objectType)
+        {
+            case ObjectType.ResourceBldg:
+                resourceBldgs.Remove(closestTarget);
+                break;
+            case ObjectType.DefenceBldg:
+                defenceBldgs.Remove(closestTarget);
+                break;
+            case ObjectType.Unit:
+                troops.Remove(closestTarget);
+                break;
+            case ObjectType.Tank:
+                tanks.Remove(closestTarget);
+                break;
         }
 
         return closestTarget;
