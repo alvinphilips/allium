@@ -9,7 +9,7 @@ namespace Game.Scripts.UI
     public class LobbyListMenu : Menu
     {
         [SerializeField] private StyleSheet style;
-
+        [SerializeField] private bool usePaddingTopBar;
         private bool _hideFullGames = true;
 
         private new void Start()
@@ -18,6 +18,11 @@ namespace Game.Scripts.UI
             
             Debug.Log("Awooga 2: Electric Boogaloo");
             FusionManager.Instance.onSessionListUpdatedCallbacks.AddListener(() => RefreshUI = true);
+
+            if (Application.isPlaying && Application.platform == RuntimePlatform.IPhonePlayer)
+            {
+                usePaddingTopBar = true;
+            }
         }
         
         protected override IEnumerator Generate()
@@ -33,6 +38,10 @@ namespace Game.Scripts.UI
             var lobbyList = container.Create<ScrollView>("w-full");
             
             var topBar = lobbyList.Create("bg-emerald-900", "p-4", "text-white");
+            if (usePaddingTopBar)
+            {
+                topBar.AddToClassList("pt-4");
+            }
             var hideFullGamesToggle = topBar.Create<Toggle>();
             hideFullGamesToggle.value = _hideFullGames;
             hideFullGamesToggle.RegisterCallback<ChangeEvent<bool>>(evt =>
