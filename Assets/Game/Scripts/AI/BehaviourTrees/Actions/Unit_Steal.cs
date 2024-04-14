@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Unit_FleeFromEnemy : Unit_BaseAction
+public class Unit_Steal : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
