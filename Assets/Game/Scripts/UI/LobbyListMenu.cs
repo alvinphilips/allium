@@ -9,7 +9,6 @@ namespace Game.Scripts.UI
     public class LobbyListMenu : Menu
     {
         [SerializeField] private StyleSheet style;
-        [SerializeField] private bool usePaddingTopBar;
         private bool _hideFullGames = true;
 
         private new void Start()
@@ -18,11 +17,6 @@ namespace Game.Scripts.UI
             
             Debug.Log("Awooga 2: Electric Boogaloo");
             FusionManager.Instance.onSessionListUpdatedCallbacks.AddListener(() => RefreshUI = true);
-
-            if (Application.isPlaying && Application.platform == RuntimePlatform.IPhonePlayer)
-            {
-                usePaddingTopBar = true;
-            }
         }
         
         protected override IEnumerator Generate()
@@ -38,9 +32,9 @@ namespace Game.Scripts.UI
             var lobbyList = container.Create<ScrollView>("w-full");
             
             var topBar = lobbyList.Create("bg-emerald-900", "p-4", "text-white");
-            if (usePaddingTopBar)
+            if (IsMobile)
             {
-                topBar.AddToClassList("pt-4");
+                topBar.AddToClassList("pt-12");
             }
             var hideFullGamesToggle = topBar.Create<Toggle>();
             hideFullGamesToggle.value = _hideFullGames;
@@ -60,10 +54,18 @@ namespace Game.Scripts.UI
             }
 
             var bottomBar = container.Create("w-full", "justify-between", "bg-white", "flex-row", "items-center");
-            var foundLobbiesText = bottomBar.Create<Label>("px-4");
-            foundLobbiesText.text =
-                $"Found {suitableLobbies}/{FusionManager.Instance.SessionList.Count} lobbies that meet search criteria.";
+            if (!IsMobile)
+            {
+                var foundLobbiesText = bottomBar.Create<Label>("px-4");
+                foundLobbiesText.text =
+                    $"Found {suitableLobbies}/{FusionManager.Instance.SessionList.Count} lobbies that meet search criteria.";
+            }
             var createLobbyButton = bottomBar.Create<Button>("bg-emerald-900", "text-white", "p-4");
+            if (IsMobile)
+            {
+                createLobbyButton.AddToClassList("w-full");
+                createLobbyButton.AddToClassList("pb-8");
+            }
             createLobbyButton.text = "Host Game";
             createLobbyButton.RegisterCallback<ClickEvent>(async evt =>
             {

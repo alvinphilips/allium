@@ -56,6 +56,10 @@ Button {
     border-bottom-width: 2px;
 }
 
+.text-center {
+    -unity-text-align: middle-center;
+}
+
 .p-2 {
     padding: 8px;
 }
@@ -88,6 +92,22 @@ Button {
 
 .text-lg {
     font-size: 18px;
+}
+
+.text-xl {
+    font-size: 20px;
+}
+
+.text-2xl {
+    font-size: 24px;
+}
+
+.text-3xl {
+    font-size: 30px;
+}
+
+.text-4xl {
+    font-size: 36px;
 }
 
 .font-bold {
@@ -142,12 +162,25 @@ Button {
     align-items: center;
 }
 
-.pt-4 {
-    padding-top: 16px;
+.pt-12 {
+    padding-top: 48px;
+}
+
+.pb-8 {
+    padding-bottom: 32px;
 }
 
 .m-2 {
     margin: 8px;
+}
+
+.m-4 {
+    margin: 16px;
+}
+
+.my-8 {
+    margin-top: 32px;
+    margin-bottom: 32px;
 }
 
 .w-20 {
