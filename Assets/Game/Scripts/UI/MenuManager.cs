@@ -12,6 +12,8 @@ namespace Game.Scripts.UI
         [SerializeField] private GameObject dummy;
         
         public readonly Dictionary<string, Menu> RegisteredMenus = new();
+        public readonly Stack<Menu> PreviousMenus = new(5);
+        private Menu _currentMenu;
 
         public void RegisterMenu(Menu menu)
         {
@@ -34,23 +36,35 @@ namespace Game.Scripts.UI
             {
                 menu.Hide();
             }
+            _currentMenu.Hide();
         }
         
-        public void ShowMenu(Menu menu)
+        public void ShowMenu(Menu menu, bool rememberPreviousMenu = false)
         {
             ShowDummy();
             HideAllMenus();
-            
+
+            if (rememberPreviousMenu && _currentMenu != null)
+            {
+                PreviousMenus.Push(_currentMenu);
+            }
+
+            _currentMenu = menu;
             menu.Show();
             menu.RefreshUI = true;
             HideDummy();
         }
+
+        public void SetCurrentMenu(Menu menu)
+        {
+            _currentMenu = menu;
+        }
         
-        public void ShowMenu(string menuName)
+        public void ShowMenu(string menuName, bool rememberPreviousMenu = false)
         {
             var menu = GetMenu(menuName);
 
-            ShowMenu(menu);
+            ShowMenu(menu, rememberPreviousMenu);
         }
 
         public void ShowDummy()
@@ -61,6 +75,20 @@ namespace Game.Scripts.UI
         public void HideDummy()
         {
             dummy.SetActive(false);   
+        }
+
+        public void RestorePreviousState()
+        {
+            ShowDummy();
+            if (PreviousMenus.TryPop(out var previousMenu))
+            {
+                _currentMenu = previousMenu;
+            }
+            
+            HideAllMenus();
+            _currentMenu.Show();
+            _currentMenu.RefreshUI = true;
+            HideDummy();
         }
     }
 }

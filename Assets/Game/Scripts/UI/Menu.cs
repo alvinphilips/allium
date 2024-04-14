@@ -7,13 +7,26 @@ namespace Game.Scripts.UI
     [RequireComponent(typeof(UIDocument))]
     public abstract class Menu : MonoBehaviour
     {
+        public enum DeviceType
+        {
+            Desktop,
+            Mobile
+        }
         protected UIDocument Document;
+        [SerializeField] protected DeviceType deviceType = DeviceType.Desktop;
         public bool RefreshUI { get; set; }
+        public DeviceType Device => deviceType;
+        public bool IsMobile => deviceType == DeviceType.Mobile;
         
         protected void Start()
         {
             Debug.Log("Awoogs");
             StartCoroutine(Generate());
+
+            if (Application.isPlaying && Application.platform == RuntimePlatform.IPhonePlayer)
+            {
+                deviceType = DeviceType.Mobile;
+            }
         }
 
         private void Awake()

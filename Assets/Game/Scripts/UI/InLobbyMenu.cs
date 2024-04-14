@@ -44,6 +44,10 @@ namespace Game.Scripts.UI
             var playerList = container.Create<ScrollView>("w-full");
             
             var topBar = playerList.Create("bg-emerald-900", "p-4", "text-white", "flex-row", "items-center");
+            if (IsMobile)
+            {
+                topBar.AddToClassList("pt-12");
+            }
             topBar.Create<Label>().text = "Lobby Name";
             var lobbyName = topBar.Create<TextField>("text-emerald-900", "px-4", "w-60");
             lobbyName.value = LobbyName;
@@ -84,6 +88,10 @@ namespace Game.Scripts.UI
             {
                 MenuManager.Instance.HideAllMenus();
             });
+            if (IsMobile)
+            {
+                bottomBar.AddToClassList("pb-8");
+            }
         }
 
         private VisualElement CreatePlayerListItem(VisualElement parent, PlayerRef player)
