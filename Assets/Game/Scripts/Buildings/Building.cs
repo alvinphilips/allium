@@ -18,20 +18,20 @@ public class Building : NetworkBehaviour, IDestroyable
     protected int level = 1;
 
     public float Health { get; set; }
-    public float DamageMultipyer { get; set; }
+    public float DamageMultiplier { get; set; }
     public GameObject owner { get; set; }
     public UnityEvent<GameObject> OnObjectDestroyed { get; set; }
 
     protected virtual void Start()
     {
         Health = 50;
-        DamageMultipyer = 1;
+        DamageMultiplier = 1;
         owner = gameObject;
     }
 
     public void Damage(float damage)
     {
-        Health -= damage * DamageMultipyer;
+        Health -= damage * DamageMultiplier;
         
         if (Health <= 0)
         {
