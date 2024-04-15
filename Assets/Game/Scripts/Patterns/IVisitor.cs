@@ -1,6 +1,6 @@
 ﻿namespace Game.Scripts.Patterns
 {
-    public interface IVisitor
+    public interface IVisitor<T>
     {
     }
 }

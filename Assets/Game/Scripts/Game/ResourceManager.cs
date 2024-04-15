@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Game.Scripts.Game
 {
-    public enum Resources
+    public enum ResourceType
     {
         Money,
         Troops  //etc to be determined and added
@@ -14,18 +14,18 @@ namespace Game.Scripts.Game
 
     public class ResourceManager : Singleton<ResourceManager>
     {
-        private Dictionary<Resources, int> _resources;
+        private Dictionary<ResourceType, int> _resources;
 
         private int Money
         {
-            get => _resources[Resources.Money];
-            set => _resources[Resources.Money] = value;
+            get => _resources[ResourceType.Money];
+            set => _resources[ResourceType.Money] = value;
         }
         
         private int Troops
         {
-            get => _resources[Resources.Troops];
-            set => _resources[Resources.Troops] = value;
+            get => _resources[ResourceType.Troops];
+            set => _resources[ResourceType.Troops] = value;
         }
         
         public int GetMoney() { return Money; }

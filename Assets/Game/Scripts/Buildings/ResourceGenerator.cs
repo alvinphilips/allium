@@ -1,13 +1,12 @@
 using Game.Scripts.Game;
 using UnityEngine;
-using Resources = Game.Scripts.Game.Resources;
 
 namespace Game.Scripts.Buildings
 {
     public class ResourceGenerator : Building
     {
         [SerializeField]
-        Resources resourceType;
+        ResourceType resourceType;
 
         [SerializeField]
         int genFrequency;
@@ -43,10 +42,10 @@ namespace Game.Scripts.Buildings
         {
             switch(resourceType)
             {
-                case Resources.Money:
+                case ResourceType.Money:
                     resourceManager.AddMoney(genQuantity); 
                     break;
-                case Resources.Troops: 
+                case ResourceType.Troops: 
                     resourceManager.AddTroops(); 
                     break;
             }
