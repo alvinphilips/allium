@@ -30,9 +30,19 @@ namespace Game.Scripts.UI
             
             var playButton = container.Create<Button>("text-2xl", "m-4",  "text-white", "p-4", "bg-emerald-800");
             playButton.text = "Play";
+            playButton.RegisterCallback<ClickEvent>(_ =>
+            {
+                MenuManager.Instance.SetCurrentMenu(this);
+                MenuManager.Instance.ShowMenu(MenuManager.Instance.lobbyListMenu, true);
+            });
 
             var optionsButton = container.Create<Button>("text-2xl", "m-4", "text-white", "p-4", "bg-emerald-800");
             optionsButton.text = "Options";
+            optionsButton.RegisterCallback<ClickEvent>(_ =>
+            {
+                MenuManager.Instance.SetCurrentMenu(this);
+                MenuManager.Instance.ShowMenu(MenuManager.Instance.optionsMenu, true);
+            });
             
             var creditsButton = container.Create<Button>("text-2xl", "m-4", "text-white", "p-4", "bg-emerald-800");
             creditsButton.text = "Credits";

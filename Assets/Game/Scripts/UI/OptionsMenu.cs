@@ -23,6 +23,8 @@ namespace Game.Scripts.UI
             {
                 container.AddToClassList("pt-12");
             }
+
+            container.Create<Label>("text-4xl", "text-white").text = "in progress";
         }
     }
 }

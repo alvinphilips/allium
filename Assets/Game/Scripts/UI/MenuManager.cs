@@ -8,6 +8,7 @@ namespace Game.Scripts.UI
     {
         public LobbyListMenu lobbyListMenu;
         public InLobbyMenu inLobbyMenu;
+        public OptionsMenu optionsMenu;
 
         [SerializeField] private GameObject dummy;
         
