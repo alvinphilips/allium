@@ -24,7 +24,17 @@ namespace Game.Scripts.UI
                 container.AddToClassList("pt-12");
             }
 
-            container.Create<Label>("text-4xl", "text-white").text = "in progress";
+            var optionsPanel = container.Create("w-full");
+            optionsPanel.Create<Label>("text-4xl", "text-white").text = "in progress";
+            
+            var leaveButton = container.Create<Button>("text-2xl", "text-white", "bg-emerald-900", "p-4");
+            if (IsMobile)
+            {
+                leaveButton.AddToClassList("pb-8");
+            }
+            leaveButton.text = "Leave";
+            leaveButton.RegisterCallback<ClickEvent>(evt => MenuManager.Instance.RestorePreviousState());
+
         }
     }
 }

@@ -4,6 +4,8 @@ using UnityEngine;
 public interface IDestroyable
 {
     public float Health { get; set; }
+    public float DamageMultiplier { get; set; }
+    public GameObject owner { get; set; }
 
     public bool IsDead => Health <= 0;
 
