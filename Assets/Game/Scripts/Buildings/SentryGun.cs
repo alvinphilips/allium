@@ -71,8 +71,10 @@ namespace Game.Scripts.Buildings
             set => turretMaxRotationSpeed = value;
         }
 
-        public void Start()
+        protected override void Start()
         {
+            base.Start();
+            
             if (fireAudio != null)
             {
                 AudioManager.Instance.LoadSfx(fireAudio);
@@ -127,7 +129,7 @@ namespace Game.Scripts.Buildings
             }
         }
 
-        private void Fire()
+        public override void Fire()
         {
             switch (Ammunition.Type)
             {

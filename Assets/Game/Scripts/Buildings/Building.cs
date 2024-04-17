@@ -22,7 +22,7 @@ public class Building : NetworkBehaviour, IDestroyable
     public GameObject owner { get; set; }
     public UnityEvent<GameObject> OnObjectDestroyed { get; set; }
 
-    public void Start()
+    protected virtual void Start()
     {
         Health = 50;
         DamageMultipyer = 1;

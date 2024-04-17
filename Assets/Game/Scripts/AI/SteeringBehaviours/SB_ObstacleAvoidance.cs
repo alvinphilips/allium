@@ -22,7 +22,6 @@ public class SB_ObstacleAvoidance : SteeringBehviourBase
 
             if(Physics.Raycast(ray, out hit, feeler.distance, layerMask)) 
             {
-                Debug.Log("Feeler Feeling Stuff");
                 Vector3 forceDir = Vector3.Project(hit.point - transform.position, transform.forward);
                 float multiplier = 1f + ((feeler.distance - forceDir.magnitude) / feeler.distance);
 
@@ -35,7 +34,7 @@ public class SB_ObstacleAvoidance : SteeringBehviourBase
         return Vector3.zero;
     }
 
-    private void OnDrawGizmos()
+    protected override void OnDrawGizmos()
     {
         foreach (Feeler feeler in feelers)
         {

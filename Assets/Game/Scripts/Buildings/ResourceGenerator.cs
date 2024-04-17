@@ -17,7 +17,7 @@ namespace Game.Scripts.Buildings
 
         ResourceManager resourceManager;
 
-        public void Start()
+        protected override void Start()
         {
             base.Start();
 

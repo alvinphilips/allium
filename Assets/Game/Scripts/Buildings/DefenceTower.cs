@@ -31,8 +31,10 @@ public class DefenceTower : Building
     public float fireThreshould;
 
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
+        base.Start();
+        
         buildingType = BuildingTypes.Defence;
     }
 
