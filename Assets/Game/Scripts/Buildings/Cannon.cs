@@ -21,24 +21,9 @@ namespace Game.Scripts.Buildings
 
         public override Transform GetTarget()
         {
-            Collider[] colliders = Physics.OverlapSphere(transform.position, range, targetLayer);
-        
-            Debug.Log($"Canon Checking for Targets {colliders.Length}");
+            target = PlacementHandler.Instance.GetClosestTarget(transform.position, ObjectType.Tank, range).transform; 
 
-            if (colliders.Length > 0)
-            {
-                foreach (Collider collider in colliders)
-                {
-                    if (collider.tag == "Enemy") 
-                    {
-
-                        target = collider.gameObject.transform;
-                        return target;
-                    }
-                }
-            }
-
-            return null;
+            return target;
         }
     }
 }

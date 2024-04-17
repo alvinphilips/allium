@@ -21,7 +21,7 @@ namespace Game.Scripts.Buildings
         public BulletType Type { get; set; }
     }
     
-    public class SentryGun : NetworkBehaviour
+    public class SentryGun : DefenceTower
     {
         [SerializeField, Unit(Units.PerSecond)] private float fireRate;
         [SerializeField, Unit(Units.Count)] private int beltSize = 300;

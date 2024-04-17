@@ -49,7 +49,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 1e7f6f70c50e3864789127de6b014097, type: 2}
     - target: {fileID: 613292779795284151, guid: ebd7292e888c84f05924605e51048072, type: 3}
       propertyPath: m_Name
-      value: SentryGun
+      value: SentryGunCannon
       objectReference: {fileID: 0}
     - target: {fileID: 3471538223933167219, guid: ebd7292e888c84f05924605e51048072, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -157,6 +157,7 @@ MonoBehaviour:
   NestedObjects: []
   NetworkedBehaviours:
   - {fileID: 2469721199119050319}
+  - {fileID: 6872424908053096344}
 --- !u!4 &2656020034539478329 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3900644259840735266, guid: ebd7292e888c84f05924605e51048072, type: 3}

@@ -37,7 +37,7 @@ public class PlacementHandler : Singleton<PlacementHandler>
         }
     }
 
-    public GameObject GetClosestTarget(Vector3 SrcPos, ObjectType objectType, float range)
+    public GameObject GetClosestTarget(Vector3 SrcPos, ObjectType objectType, float range = 1000f)
     {
         List<GameObject> possibleTargets = new List<GameObject>();
 
@@ -58,14 +58,18 @@ public class PlacementHandler : Singleton<PlacementHandler>
         }
 
         GameObject closestTarget = null;
-        float closestDist = 100;
+        float closestDist = 1000f;
         foreach (GameObject target in possibleTargets)
         {
             float dist = Vector3.Distance(SrcPos, target.transform.position);
-            if(closestDist > dist)
+
+            if(dist < range)
             {
-                closestTarget = target;
-                closestDist = dist;
+                if(closestDist > dist)
+                {
+                    closestTarget = target;
+                    closestDist = dist;
+                }
             }
         }
 

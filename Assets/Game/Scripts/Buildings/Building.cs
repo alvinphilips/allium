@@ -1,3 +1,4 @@
+using Fusion;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,7 +11,7 @@ public enum BuildingTypes
     UnitSpawn
 }
 
-public class Building : MonoBehaviour, IDestroyable
+public class Building : NetworkBehaviour, IDestroyable
 {
     protected BuildingTypes buildingType = BuildingTypes.ResourceGeneration;
 
