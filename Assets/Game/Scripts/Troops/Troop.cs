@@ -1,64 +1,62 @@
-using System.Collections;
-using System.Collections.Generic;
+using Fusion;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Troop : MonoBehaviour, IDestroyable
+namespace Game.Scripts.Troops
 {
-
-    public Transform target;
-
-    [SerializeField]
-    public int range;
-
-    [SerializeField]
-    public int damage;
-
-    [SerializeField]
-    public float turretRotateSpeed = 10f;
-
-    //Angle within which turret can fire
-    public float fireThreshold;
-    public float DamageMultiplier { get; set; }
-    public GameObject owner { get; set; }
-
-    public float fireDelay;
-
-    UnityEvent<GameObject> IDestroyable.OnObjectDestroyed { get; set; }
-    public float Health { get; set; }
-
-    protected virtual void Start()
+    public class Troop : NetworkBehaviour, IDestroyable
     {
-        Health = 50;
-        DamageMultiplier = 1;
-        owner = gameObject;
-    }
+        public Transform Target;
 
-    void IDestroyable.Damage(float damage)
-    {
-        Health -= damage * DamageMultiplier;
-        if (Health <= 0)
-            ((IDestroyable)this).DestroyObject();
-    }
+        [Networked] public int Range { get; set; }
 
-    void IDestroyable.DestroyObject()
-    {
-        ((IDestroyable)this).OnObjectDestroyed?.Invoke(owner);
-        GameObject.Destroy(owner);
-    }
+        [Networked] public int Damage { get; set; }
 
-    public virtual Transform GetTarget()
-    {
-        return target;
-    }
+        public float turretRotateSpeed = 10f;
 
-    public virtual void Aim(Quaternion rotation)
-    {
+        //Angle within which turret can fire
+        public float fireThreshold;
+        public float DamageMultiplier { get; set; }
+        public GameObject Owner { get; set; }
+
+        public float fireDelay;
+
+        UnityEvent<GameObject> IDestroyable.OnObjectDestroyed { get; set; }
+        public float Health { get; set; }
+
+        protected virtual void Start()
+        {
+            Health = 50;
+            DamageMultiplier = 1;
+            Owner = gameObject;
+        }
+
+        void IDestroyable.Damage(float damage)
+        {
+            Health -= damage * DamageMultiplier;
+            if (Health <= 0)
+                ((IDestroyable)this).DestroyObject();
+        }
+
+        void IDestroyable.DestroyObject()
+        {
+            ((IDestroyable)this).OnObjectDestroyed?.Invoke(Owner);
+            GameObject.Destroy(Owner);
+        }
+
+        public virtual Transform GetTarget()
+        {
+            return Target;
+        }
+
+        public virtual void Aim(Quaternion rotation)
+        {
        
-    }
+        }
     
-    public virtual void Fire()
-    {
+        public virtual void Fire()
+        {
         
+        }
     }
 }

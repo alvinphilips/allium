@@ -9,7 +9,6 @@ namespace Game.Scripts.Game.States
         {
             EventBus<GameStates>.Publish(GameStates.Paused);
         
-            GameManager.Instance.pauseMenu.SetActive(true);
         }
 
         public void OnUpdate(GameManager state)
@@ -24,7 +23,6 @@ namespace Game.Scripts.Game.States
         {
             EventBus<GameStates>.Publish(GameStates.Running);
         
-            GameManager.Instance.pauseMenu.SetActive(false);
         }
     }
 }

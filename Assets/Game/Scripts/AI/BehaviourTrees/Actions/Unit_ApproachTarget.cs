@@ -15,7 +15,7 @@ public class Unit_ApproachTarget : Unit_BaseAction
 
         Debug.Assert(steeringAgent != null, $"{unit.gameObject.name} requires Steering Agent Component!");
 
-        steeringAgent.SetTarget(unit.target.position);
+        steeringAgent.SetTarget(unit.Target.position);
     }
 
     public override TaskStatus OnUpdate()

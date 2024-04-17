@@ -7,8 +7,6 @@ namespace Game.Scripts.UI
 {
     public class OptionsMenu: Menu
     {
-        [SerializeField] private StyleSheet style;
-        
         protected override IEnumerator Generate()
         {
             yield return null;

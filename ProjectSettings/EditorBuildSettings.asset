@@ -9,14 +9,11 @@ EditorBuildSettings:
     path: Assets/Game/Scenes/MainMenu.unity
     guid: 7cbc7b0ffb75545f2a192325476a19b2
   - enabled: 1
-    path: Assets/Game/Scenes/Weapons_Test.unity
+    path: Assets/Game/Scenes/MainScene.unity
     guid: f5fe7a2df30d636459139dfafb88b110
   - enabled: 0
     path: Assets/Game/Scenes/PrototypeScene.unity
     guid: 289c365c167f14957b980bfdb14d07b5
-  - enabled: 1
-    path: Assets/Game/Scenes/TestScene.unity
-    guid: e0c9d2572a2df0d49816753851dd3227
   m_configObjects:
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 6ee72d15cf39dd748a13eac57397b9af, type: 2}
     UnityEditor.XR.ARKit.ARKitSettings: {fileID: 11400000, guid: 0465d33c6aee55f44b0237db8b0e0259, type: 2}

@@ -1,40 +1,40 @@
-using Game.Scripts;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public enum UnitType
+namespace Game.Scripts.Troops
 {
-    Looters,
-    Footmen
-}
-
-public class Unit : Troop
-{
-    //To decide on which action to perform
-    public UnitType unitType;
-
-    public override Transform GetTarget()
+    public enum UnitType
     {
-        target = PlacementHandler.Instance.GetClosestTarget(transform.position, ObjectType.ResourceBldg, range).transform;
-
-        return target;
+        Looters,
+        Footmen
     }
 
-    public override void Aim(Quaternion rotation)
+    public class Unit : Troop
     {
-        transform.rotation = rotation;
-    }
+        //To decide on which action to perform
+        public UnitType unitType;
 
-    public void Loot()
-    {
-        //Action of looting resource to be performed
-    }
+        public override Transform GetTarget()
+        {
+            Target = PlacementHandler.Instance.GetClosestTarget(transform.position, ObjectType.ResourceBldg, Range).transform;
 
-    public override void Fire()
-    {
-        Debug.Log("Firing");
+            return Target;
+        }
 
-        //Firing logic to be placed
+        public override void Aim(Quaternion rotation)
+        {
+            transform.rotation = rotation;
+        }
+
+        public void Loot()
+        {
+            //Action of looting resource to be performed
+        }
+
+        public override void Fire()
+        {
+            Debug.Log("Firing");
+
+            //Firing logic to be placed
+        }
     }
 }

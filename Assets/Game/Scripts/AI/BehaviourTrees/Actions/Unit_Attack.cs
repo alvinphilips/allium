@@ -11,9 +11,9 @@ public class Unit_Attack : Unit_BaseAction
     {
         base.OnUpdate();
 
-        if (unit.target != null)
+        if (unit.Target != null)
         {
-            Vector3 vectorToTarget = (unit.target.position - unit.transform.position);
+            Vector3 vectorToTarget = (unit.Target.position - unit.transform.position);
             Quaternion targetRotation = Quaternion.LookRotation(vectorToTarget);
             Quaternion rotation = Quaternion.Lerp(unit.transform.rotation, targetRotation, 50f * Time.deltaTime);
             unit.Aim(rotation);
@@ -33,7 +33,7 @@ public class Unit_Attack : Unit_BaseAction
 
             float distanceToTarget = vectorToTarget.magnitude;
 
-            if (distanceToTarget > unit.range)
+            if (distanceToTarget > unit.Range)
             {
                 return TaskStatus.Success;
             }

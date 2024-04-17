@@ -1,44 +1,44 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Game.Scripts;
 
-public class Tank : Troop
+namespace Game.Scripts.Troops
 {
-    [SerializeField]
-    public Transform projectileFirePos;
-
-    [SerializeField]
-    public Transform turretTransform;
-
-    [SerializeField]
-    GameObject projectilePrefab;
-
-    public void RotateTurret(Quaternion rotation)
+    public class Tank : Troop
     {
-        turretTransform.rotation = rotation;
-    }
+        [SerializeField]
+        public Transform projectileFirePos;
 
-    public override Transform GetTarget()
-    {
-        target = PlacementHandler.Instance.GetClosestTarget(transform.position, ObjectType.DefenceBldg, range).transform;
+        [SerializeField]
+        public Transform turretTransform;
 
-        return target;
-    }
+        [SerializeField]
+        GameObject projectilePrefab;
 
-    public override void Aim(Quaternion rotation)
-    {
-        RotateTurret(rotation);
-    }
+        public void RotateTurret(Quaternion rotation)
+        {
+            turretTransform.rotation = rotation;
+        }
 
-    public override void Fire()
-    {
-        Debug.Log("Firing");
+        public override Transform GetTarget()
+        {
+            Target = PlacementHandler.Instance.GetClosestTarget(transform.position, ObjectType.DefenceBldg, Range).transform;
 
-        Projectile p = GameObject.Instantiate(projectilePrefab).GetComponent<Projectile>();
-        p.transform.position = projectileFirePos.position;
-        p.transform.rotation = projectileFirePos.rotation;
-        p.Damage = damage;
-        p.Range = range;
+            return Target;
+        }
+
+        public override void Aim(Quaternion rotation)
+        {
+            RotateTurret(rotation);
+        }
+
+        public override void Fire()
+        {
+            Debug.Log("Firing");
+
+            Projectile p = GameObject.Instantiate(projectilePrefab).GetComponent<Projectile>();
+            p.transform.position = projectileFirePos.position;
+            p.transform.rotation = projectileFirePos.rotation;
+            p.Damage = Damage;
+            p.Range = Range;
+        }
     }
 }

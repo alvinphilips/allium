@@ -8,7 +8,6 @@ namespace Game.Scripts.UI
 {
     public class LobbyListMenu : Menu
     {
-        [SerializeField] private StyleSheet style;
         private bool _hideFullGames = true;
 
         private new void Start()

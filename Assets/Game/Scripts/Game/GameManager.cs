@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using Fusion;
@@ -10,25 +11,27 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
+using UnityEngine.XR.ARFoundation;
 
 namespace Game.Scripts.Game
 {
-    [System.Serializable]
+    [Serializable]
     public class SaveData
     {
-        public DateTime startTime;
-        public DateTime endTime;
-        public TimeSpan duration;
+        public DateTime StartTime;
+        public DateTime EndTime;
+        public TimeSpan Duration;
 
         public SaveData(DateTime sTime, DateTime eTime, TimeSpan dur)
         {
-            startTime = sTime;
-            endTime = eTime;
-            duration = dur;
+            StartTime = sTime;
+            EndTime = eTime;
+            Duration = dur;
         }
     }
 
-    [System.Serializable]
+    [Serializable]
     public class SaveDataList
     {
         public List<SaveData> gameSessions = new List<SaveData>();
@@ -39,31 +42,50 @@ namespace Game.Scripts.Game
         private DateTime _sessionStartTime;
         private DateTime _sessionEndTime;
 
-        SaveDataList dataList;
-        private string savePath;
+        private SaveDataList _dataList;
+        private string _savePath;
 
         private readonly Stack<IState<GameManager>> _stateHistory = new Stack<IState<GameManager>>();
         private IState<GameManager> _currentState;
 
-        public GameObject mainMenu;
-        public GameObject pauseMenu;
-        public GameObject optionsMenu;
-        
-        [SerializeField] private AssetReference backGroundMusic;
+        [SerializeField] private Camera nonARCamera;
+        [SerializeField] private AssetReference backgroundMusic;
+        [SerializeField] private ARSession arSession;
 
         private AudioObject _bgm;
 
         private bool _muteAudio;
+
+        public bool IsAREnabled { get; private set; }
+
+        private IEnumerator SetupAR()
+        {
+            arSession.gameObject.SetActive(false);
+            if (Application.platform != RuntimePlatform.IPhonePlayer)
+            {
+                yield break;
+            }
+            yield return ARSession.CheckAvailability();
+
+            if (ARSession.state == ARSessionState.Ready)
+            {
+                IsAREnabled = true;
+                arSession.gameObject.SetActive(true);
+                nonARCamera.gameObject.SetActive(false);
+            }
+        }
 
         private void Start()
         {
             _sessionStartTime = DateTime.Now;
             Debug.Log($"Game session started at {_sessionStartTime}.");
 
-            savePath = Path.Combine(Application.persistentDataPath, "SaveData.json");
+            _savePath = Path.Combine(Application.persistentDataPath, "SaveData.json");
             LoadData();
 
-            var handle = Addressables.LoadAssetAsync<AudioObject>(backGroundMusic.AssetGUID);
+            StartCoroutine(SetupAR());
+            
+            var handle = Addressables.LoadAssetAsync<AudioObject>(backgroundMusic.AssetGUID);
             
             handle.Completed += (op) =>
             {
@@ -93,7 +115,7 @@ namespace Game.Scripts.Game
             Debug.Log($"Game session ended at {_sessionEndTime}.");
             Debug.Log($"Game session lasted {sessionLength}.");
 
-            dataList.gameSessions.Add(new SaveData(_sessionStartTime, _sessionEndTime, sessionLength));
+            _dataList.gameSessions.Add(new SaveData(_sessionStartTime, _sessionEndTime, sessionLength));
 
             SerializeData();
         }
@@ -153,41 +175,17 @@ namespace Game.Scripts.Game
 
         private void LoadData()
         {
-            if (File.Exists(savePath))
+            if (File.Exists(_savePath))
             {
-                string json = File.ReadAllText(savePath);
-                dataList = JsonUtility.FromJson<SaveDataList>(json);
+                string json = File.ReadAllText(_savePath);
+                _dataList = JsonUtility.FromJson<SaveDataList>(json);
             }
         }
 
         private void SerializeData()
         {
-            string json = JsonUtility.ToJson(dataList);
-            File.WriteAllText(savePath, json);
+            string json = JsonUtility.ToJson(_dataList);
+            File.WriteAllText(_savePath, json);
         }
-
-        #region Menu Functions
-
-        public void CreateGame()
-        {
-            FusionManager.Instance.StartGame(GameMode.Host);
-            ChangeState(new PlayState());
-        }
-
-        public void JoinGame()
-        {
-            FusionManager.Instance.StartGame(GameMode.Client);
-            ChangeState(new PlayState());
-        }
-
-        public void LeaveGame()
-        {
-            if (FusionManager.Instance.Runner != null)
-            {
-                FusionManager.Instance.Runner.Shutdown();
-            }
-        }
-
-        #endregion
     }
 }

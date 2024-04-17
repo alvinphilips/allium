@@ -7,7 +7,6 @@ namespace Game.Scripts.UI
 {
     public class MainMenu: Menu
     {
-        [SerializeField] private StyleSheet style;
         // TODO: Switch to using MenuManager for this
         [SerializeField] private CreditsPage credits;
         

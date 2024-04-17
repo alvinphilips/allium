@@ -17,7 +17,6 @@ namespace Game.Scripts.UI
         }
         [SerializeField] private List<CreditsEntry> creditsList = new();
         [SerializeField] private bool displayDescription;
-        [SerializeField] private StyleSheet style;
         
         protected override IEnumerator Generate()
         {

@@ -7,9 +7,7 @@ namespace Game.Scripts
     {
         [Networked] public float Damage { get; set; }
         [Networked] public float Range { get; set; }
-
         [Networked] public float Velocity { get; set; }
-
         [Networked] private Vector3 StartPos { set; get; }
 
         public override void Spawned()
