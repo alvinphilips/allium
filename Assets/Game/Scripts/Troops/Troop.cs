@@ -18,8 +18,8 @@ public class Troop : MonoBehaviour, IDestroyable
     public float turretRotateSpeed = 10f;
 
     //Angle within which turret can fire
-    public float fireThreshould;
-    public float DamageMultipyer { get; set; }
+    public float fireThreshold;
+    public float DamageMultiplier { get; set; }
     public GameObject owner { get; set; }
 
     public float fireDelay;
@@ -30,13 +30,13 @@ public class Troop : MonoBehaviour, IDestroyable
     protected virtual void Start()
     {
         Health = 50;
-        DamageMultipyer = 1;
+        DamageMultiplier = 1;
         owner = gameObject;
     }
 
     void IDestroyable.Damage(float damage)
     {
-        Health -= damage * DamageMultipyer;
+        Health -= damage * DamageMultiplier;
         if (Health <= 0)
             ((IDestroyable)this).DestroyObject();
     }

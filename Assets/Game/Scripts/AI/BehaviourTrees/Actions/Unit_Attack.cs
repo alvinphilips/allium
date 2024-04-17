@@ -20,7 +20,7 @@ public class Unit_Attack : Unit_BaseAction
 
             float angle = Vector3.Angle(unit.transform.forward, vectorToTarget);
 
-            if (Mathf.Abs(angle) < unit.fireThreshould)
+            if (Mathf.Abs(angle) < unit.fireThreshold)
             {
                 if (currentTime.Value > nextFireTime.Value)
                 {

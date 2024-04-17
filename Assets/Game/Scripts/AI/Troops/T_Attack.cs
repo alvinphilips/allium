@@ -20,7 +20,7 @@ public class T_Attack : T_BaseState
 
             float angle = Vector3.Angle(tank.turretTransform.forward, (tank.target.position - owner.transform.position));
 
-            if (Mathf.Abs(angle) < tank.fireThreshould)
+            if (Mathf.Abs(angle) < tank.fireThreshold)
             {
                 if (currentTime > nextFireTime)
                 {
