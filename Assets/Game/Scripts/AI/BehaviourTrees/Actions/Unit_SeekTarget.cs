@@ -1,18 +1,18 @@
+using BehaviorDesigner.Runtime.Tasks;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Unit_SeekTarget : Unit_BaseAction
 {
-    // Start is called before the first frame update
-    void Start()
+    public override TaskStatus OnUpdate()
     {
-        
+        base.OnUpdate();
+
+        if(unit.GetTarget() == null)
+            return TaskStatus.Running;
+
+        return TaskStatus.Success;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

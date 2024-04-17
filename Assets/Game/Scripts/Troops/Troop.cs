@@ -14,7 +14,11 @@ public class Troop : MonoBehaviour, IDestroyable
     [SerializeField]
     public int damage;
 
-    
+    [SerializeField]
+    public float turretRotateSpeed = 10f;
+
+    //Angle within which turret can fire
+    public float fireThreshould;
     public float DamageMultipyer { get; set; }
     public GameObject owner { get; set; }
 

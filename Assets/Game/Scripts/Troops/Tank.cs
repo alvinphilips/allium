@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 using Game.Scripts;
 
 public class Tank : Troop
@@ -11,12 +10,6 @@ public class Tank : Troop
 
     [SerializeField]
     public Transform turretTransform;
-
-    [SerializeField]
-    public float turretRotateSpeed = 10f;
-
-    //Angle within which turret can fire
-    public float fireThreshould;
 
     [SerializeField]
     GameObject projectilePrefab;

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Unit_BaseAction : Task
 {
-    Unit unit;
+    protected Unit unit;
 
 
 }
