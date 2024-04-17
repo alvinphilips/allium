@@ -19,14 +19,14 @@ public class Building : NetworkBehaviour, IDestroyable
 
     public float Health { get; set; }
     public float DamageMultiplier { get; set; }
-    public GameObject owner { get; set; }
+    public GameObject Owner { get; set; }
     public UnityEvent<GameObject> OnObjectDestroyed { get; set; }
 
     protected virtual void Start()
     {
         Health = 50;
         DamageMultiplier = 1;
-        owner = gameObject;
+        Owner = gameObject;
     }
 
     public void Damage(float damage)
@@ -41,7 +41,7 @@ public class Building : NetworkBehaviour, IDestroyable
 
     public void DestroyObject()
     {
-        OnObjectDestroyed?.Invoke(owner);
-        GameObject.Destroy(owner);
+        OnObjectDestroyed?.Invoke(Owner);
+        GameObject.Destroy(Owner);
     }
 }

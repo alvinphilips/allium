@@ -8,6 +8,7 @@ namespace Game.Scripts.UI
     {
         public LobbyListMenu lobbyListMenu;
         public InLobbyMenu inLobbyMenu;
+        public MainMenu mainMenu;
         public OptionsMenu optionsMenu;
 
         [SerializeField] private GameObject dummy;
@@ -37,7 +38,11 @@ namespace Game.Scripts.UI
             {
                 menu.Hide();
             }
-            _currentMenu.Hide();
+
+            if (_currentMenu != null)
+            {
+                _currentMenu.Hide();
+            }
         }
         
         public void ShowMenu(Menu menu, bool rememberPreviousMenu = false)

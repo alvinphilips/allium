@@ -6,9 +6,9 @@ public class T_SeekTarget : T_BaseState
 {
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        tank.target = tank.GetTarget();
+        tank.Target = tank.GetTarget();
 
-        if (tank.target != null)
+        if (tank.Target != null)
         {
             fsm.ChangeState(T_ApproachTarget);
         }

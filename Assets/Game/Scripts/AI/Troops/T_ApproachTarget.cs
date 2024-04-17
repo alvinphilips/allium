@@ -15,7 +15,7 @@ public class T_ApproachTarget : T_BaseState
 
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        steeringAgent.SetTarget(tank.target.position);
+        steeringAgent.SetTarget(tank.Target.position);
     }
 
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

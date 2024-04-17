@@ -10,15 +10,15 @@ public class T_Attack : T_BaseState
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         //Rotate to target and keep firing
-        if (tank.target != null)
+        if (tank.Target != null)
         {
-            Vector3 vectorToTarget = (tank.target.position - owner.transform.position);
+            Vector3 vectorToTarget = (tank.Target.position - owner.transform.position);
             Quaternion targetRotation = Quaternion.LookRotation(vectorToTarget);
             Quaternion rotation = Quaternion.Lerp(tank.turretTransform.rotation, targetRotation, tank.turretRotateSpeed * Time.deltaTime);
 
             tank.RotateTurret(rotation);
 
-            float angle = Vector3.Angle(tank.turretTransform.forward, (tank.target.position - owner.transform.position));
+            float angle = Vector3.Angle(tank.turretTransform.forward, (tank.Target.position - owner.transform.position));
 
             if (Mathf.Abs(angle) < tank.fireThreshold)
             {
@@ -33,7 +33,7 @@ public class T_Attack : T_BaseState
 
             float distanceToTarget = vectorToTarget.magnitude;
 
-            if (distanceToTarget > tank.range)
+            if (distanceToTarget > tank.Range)
             {
                 fsm.ChangeState(T_ApproachTarget);
 

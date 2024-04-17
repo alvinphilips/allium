@@ -27,4 +27,4 @@ public class MachineGun : DefenceTower
 
         return target;
     }
-}
+} 

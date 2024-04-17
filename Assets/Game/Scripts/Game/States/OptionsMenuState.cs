@@ -1,4 +1,5 @@
 using Game.Scripts.Patterns;
+using Game.Scripts.UI;
 using UnityEngine;
 
 namespace Game.Scripts.Game.States
@@ -7,14 +8,13 @@ namespace Game.Scripts.Game.States
     {
         public void OnStateEnter(GameManager state)
         {
-            GameManager.Instance.optionsMenu.SetActive(true);
+            MenuManager.Instance.ShowMenu(MenuManager.Instance.optionsMenu);
             EventBus<Settings.OptionsMenuState>.Publish(Settings.OptionsMenuState.Show);
         }
         
         public void OnStateExit(GameManager state)
         {
             EventBus<Settings.OptionsMenuState>.Publish(Settings.OptionsMenuState.Hidden);
-            GameManager.Instance.optionsMenu.SetActive(false);
         }
     }
 }

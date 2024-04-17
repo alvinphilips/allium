@@ -11,7 +11,6 @@ namespace Game.Scripts.UI
 {
     public class InLobbyMenu : Menu
     {
-        [SerializeField] private StyleSheet style;
         [SerializeField] private int gameSceneIndex;
         
         public string LobbyName { get; set; }

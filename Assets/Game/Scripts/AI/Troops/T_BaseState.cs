@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Game.Scripts.Troops;
 using UnityEngine;
 
 public class T_BaseState : FSMBaseState<TankFSM>

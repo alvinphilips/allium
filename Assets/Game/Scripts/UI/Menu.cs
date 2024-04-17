@@ -7,6 +7,8 @@ namespace Game.Scripts.UI
     [RequireComponent(typeof(UIDocument))]
     public abstract class Menu : MonoBehaviour
     {
+        [SerializeField] protected StyleSheet style;
+        
         public enum DeviceType
         {
             Desktop,
