@@ -5,14 +5,14 @@ namespace Game.Scripts
 {
     public class Projectile : NetworkBehaviour
     {
-        public float Damage { get; set; }
-        public float Range { get; set; }
+        [Networked] public float Damage { get; set; }
+        [Networked] public float Range { get; set; }
 
-        public float Velocity { get; set; }
+        [Networked] public float Velocity { get; set; }
 
-        private Vector3 StartPos { set; get; }
+        [Networked] private Vector3 StartPos { set; get; }
 
-        public void Start()
+        public override void Spawned()
         {
             if (Object.HasStateAuthority)
             {

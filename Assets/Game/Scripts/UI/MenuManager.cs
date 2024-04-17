@@ -38,22 +38,19 @@ namespace Game.Scripts.UI
         
         public void ShowMenu(Menu menu)
         {
+            ShowDummy();
             HideAllMenus();
             
             menu.Show();
             menu.RefreshUI = true;
+            HideDummy();
         }
         
         public void ShowMenu(string menuName)
         {
-            HideAllMenus();
-            
             var menu = GetMenu(menuName);
 
-            if (menu != null)
-            {
-                menu.Show();
-            }
+            ShowMenu(menu);
         }
 
         public void ShowDummy()

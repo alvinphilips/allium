@@ -74,7 +74,7 @@ namespace Game.Scripts.Fusion
                 GameMode = GameMode.AutoHostOrClient,
                 SessionName = sessionName,
                 PlayerCount = 2,
-                SceneManager = _sceneManager
+                SceneManager = _sceneManager,
             });
 
             if (!result.Ok)
@@ -95,7 +95,8 @@ namespace Game.Scripts.Fusion
             {
                 GameMode = GameMode.Client,
                 SessionName = sessionName,
-                SceneManager = _sceneManager
+                SceneManager = _sceneManager,
+                
             });
 
             if (!result.Ok)
@@ -136,18 +137,7 @@ namespace Game.Scripts.Fusion
 
         public void ChangeScene(int sceneIndex, LoadSceneMode sceneMode = LoadSceneMode.Single)
         {
-            if (!Runner.IsSceneAuthority) return;
-
             Runner.LoadScene(SceneRef.FromIndex(sceneIndex), sceneMode);
-            
-            RpcHideAllMenus();
-        }
-
-        [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
-        private void RpcHideAllMenus()
-        {
-            MenuManager.Instance.HideAllMenus();
-            MenuManager.Instance.HideDummy();
         }
         
         private void HandleShutdown()

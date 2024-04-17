@@ -78,12 +78,11 @@ namespace Game.Scripts.UI
             var foundLobbiesText = bottomBar.Create<Label>("px-4");
             foundLobbiesText.text = $"{playerCount} Players";
             var startGame = bottomBar.Create<Button>("bg-emerald-900", "text-white", "p-4");
-            startGame.text = "Start Game";
-            startGame.SetEnabled(FusionManager.Instance.IsHost && playerCount > 1);
+            startGame.text = FusionManager.Instance.IsHost ? "Start Game": "Join Game";
+            startGame.SetEnabled(playerCount > 1);
             startGame.RegisterCallback<ClickEvent>(evt =>
             {
-                FusionManager.Instance.ChangeScene(gameSceneIndex, LoadSceneMode.Single);
-                Hide();
+                MenuManager.Instance.HideAllMenus();
             });
         }
 
