@@ -45,6 +45,13 @@ namespace Game.Scripts.Game.States
             } else if (Input.GetMouseButtonDown(0))
             {
                 var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                if (!Physics.Raycast(ray, out var hitInfo, 100f, state.planeLayerMask))
+                {
+                    return;
+                }
+                
+                shouldSpawn = true;
+                spawnPosition = hitInfo.point;
             }
             
             if (!shouldSpawn) return;

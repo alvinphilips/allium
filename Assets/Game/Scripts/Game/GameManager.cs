@@ -54,6 +54,9 @@ namespace Game.Scripts.Game
         [SerializeField] public ARRaycastManager arRaycastManager;
         [SerializeField] public ARPlaneManager arPlaneManager;
         [SerializeField] private List<NetworkObject> units = new();
+        [SerializeField] public LayerMask planeLayerMask;
+        [SerializeField] private Canvas dummyCanvas;
+        [SerializeField] private Camera arCamera;
 
         private List<NetworkObject> spawnedUnits = new();
 
@@ -83,6 +86,7 @@ namespace Game.Scripts.Game
             {
                 IsAREnabled = true;
                 arSession.gameObject.SetActive(true);
+                dummyCanvas.worldCamera = arCamera;
                 nonARCamera.gameObject.SetActive(false);
             }
         }
