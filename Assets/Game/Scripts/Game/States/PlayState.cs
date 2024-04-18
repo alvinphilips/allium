@@ -24,7 +24,7 @@ namespace Game.Scripts.Game.States
             var shouldSpawn = false;
             var spawnPosition = Vector3.zero;
             var spawnRotation = Quaternion.identity;
-            
+            Debug.Log("haiii");
             if (state.IsAREnabled && Input.GetTouch(0).phase == TouchPhase.Began)
             {
                 if (!state.arRaycastManager.Raycast(Input.GetTouch(0).position, _arHits, TrackableType.PlaneWithinPolygon))
@@ -42,7 +42,9 @@ namespace Game.Scripts.Game.States
                 }
 
                 state.arPlaneManager.enabled = false;
-            } else if (Input.GetMouseButtonDown(0))
+            }
+            
+            if (!state.IsAREnabled && Input.GetMouseButtonDown(0))
             {
                 var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 if (!Physics.Raycast(ray, out var hitInfo, 100f, state.planeLayerMask))
