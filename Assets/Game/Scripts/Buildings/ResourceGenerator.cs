@@ -14,6 +14,12 @@ namespace Game.Scripts.Buildings
         [SerializeField]
         int genQuantity;
 
+        [SerializeField]
+        int maxQuantity;
+
+        [SerializeField]
+        int currentProduction;
+
         ResourceManager resourceManager;
 
         protected override void Start()
@@ -43,12 +49,32 @@ namespace Game.Scripts.Buildings
             switch(resourceType)
             {
                 case ResourceType.Money:
-                    resourceManager.AddMoney(genQuantity); 
+                    if(currentProduction < maxQuantity)
+                    {
+                        currentProduction += genQuantity;
+                        resourceManager.AddMoney(genQuantity); 
+                    }
                     break;
                 case ResourceType.Troops: 
                     resourceManager.AddTroops(); 
                     break;
             }
+        }
+
+        //To be called periodically by AI Script
+        public bool LootResource()
+        {
+            if(resourceType == ResourceType.Money)
+            {
+                if(currentProduction <= 0)
+                {
+                    resourceManager.AddMoney(-genQuantity);
+                    currentProduction -= genQuantity;
+                    return true;
+                }
+                return false;
+            }
+            return false;
         }
     }
 }
