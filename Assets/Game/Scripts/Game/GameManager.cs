@@ -36,6 +36,13 @@ namespace Game.Scripts.Game
     {
         public List<SaveData> gameSessions = new List<SaveData>();
     }
+    
+    [Serializable]
+    public struct NetworkPrefabObject
+    {
+        public string name;
+        public NetworkPrefabRef prefab;
+    }
 
     public class GameManager : NetworkSingleton<GameManager>
     {
@@ -53,16 +60,16 @@ namespace Game.Scripts.Game
         [SerializeField] private ARSession arSession;
         [SerializeField] public ARRaycastManager arRaycastManager;
         [SerializeField] public ARPlaneManager arPlaneManager;
-        [SerializeField] private List<NetworkObject> units = new();
+        [SerializeField] private List<NetworkPrefabObject> units = new();
         [SerializeField] public LayerMask planeLayerMask;
         [SerializeField] private Canvas dummyCanvas;
         [SerializeField] private Camera arCamera;
 
         private List<NetworkObject> spawnedUnits = new();
 
-        public List<NetworkObject> Units => units;
+        public List<NetworkPrefabObject> Units => units;
 
-        public NetworkObject CurrentUnit => units[_currentUnitIndex];
+        public NetworkPrefabRef CurrentUnit => units[_currentUnitIndex].prefab;
         public int SelectedUnitIndex => _currentUnitIndex;
 
         private int _currentUnitIndex = 0;
@@ -194,8 +201,8 @@ namespace Game.Scripts.Game
         {
             if (FusionManager.Instance.IsHost)
             {
-                FusionManager.Instance.Runner.Spawn(CurrentUnit, position, rotation);
-                UpdatePlacementHandler();
+                var no = FusionManager.Instance.Runner.Spawn(CurrentUnit, position, rotation);
+                UpdatePlacementHandler(no);
             }
             else
             {
@@ -203,7 +210,7 @@ namespace Game.Scripts.Game
             }
         }
 
-        private void UpdatePlacementHandler()
+        private void UpdatePlacementHandler(NetworkObject obj)
         {
             ObjectType objectType = ObjectType.ResourceBldg;
             switch (_currentUnitIndex)
@@ -215,13 +222,14 @@ namespace Game.Scripts.Game
                     objectType = ObjectType.DefenceBldg; break;
                     //Code to be added for further objects
             }
-            PlacementHandler.Instance.AddObject(CurrentUnit.gameObject, objectType);
+            PlacementHandler.Instance.AddObject(obj.gameObject, objectType);
         }
 
         [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
-        public void RpcSpawnItem(NetworkObject no, Vector3 position, Quaternion rotation)
+        private void RpcSpawnItem(NetworkPrefabRef no, Vector3 position, Quaternion rotation)
         {
-            Runner.Spawn(no, position, rotation);
+            var nono = Runner.Spawn(no, position, rotation);
+            UpdatePlacementHandler(nono);
         }
 
         public void SetSelectedUnitIndex(int index)
