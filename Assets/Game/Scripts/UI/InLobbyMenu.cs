@@ -2,6 +2,8 @@
 using System.Linq;
 using Fusion;
 using Game.Scripts.Fusion;
+using Game.Scripts.Game;
+using Game.Scripts.Game.States;
 using Game.Scripts.Utils;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -11,7 +13,6 @@ namespace Game.Scripts.UI
 {
     public class InLobbyMenu : Menu
     {
-        [SerializeField] private int gameSceneIndex;
         [SerializeField] private GameUI gameUI;
         
         public string LobbyName { get; set; }
@@ -86,6 +87,7 @@ namespace Game.Scripts.UI
             startGame.SetEnabled(playerCount > 1);
             startGame.RegisterCallback<ClickEvent>(evt =>
             {
+                GameManager.Instance.ChangeState(new PlayState());
                 MenuManager.Instance.ShowMenu(gameUI);
             });
             if (IsMobile)
