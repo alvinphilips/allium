@@ -189,7 +189,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 4039104989086920, guid: e26ccbe2ab9e83046a83abeec5dfe0af, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 829821042}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e26ccbe2ab9e83046a83abeec5dfe0af, type: 3}
 --- !u!1001 &252726287
@@ -432,6 +435,18 @@ PrefabInstance:
       value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4131086984086272957, guid: d8e5fd6f78128f94aa46e58f150aeba1, type: 3}
+      propertyPath: units.Array.data[0].name
+      value: Tank
+      objectReference: {fileID: 0}
+    - target: {fileID: 4131086984086272957, guid: d8e5fd6f78128f94aa46e58f150aeba1, type: 3}
+      propertyPath: units.Array.data[1].name
+      value: Auto Cannon
+      objectReference: {fileID: 0}
+    - target: {fileID: 4131086984086272957, guid: d8e5fd6f78128f94aa46e58f150aeba1, type: 3}
+      propertyPath: units.Array.data[2].name
+      value: Sentry Gun
+      objectReference: {fileID: 0}
+    - target: {fileID: 4131086984086272957, guid: d8e5fd6f78128f94aa46e58f150aeba1, type: 3}
       propertyPath: backgroundMusic.m_AssetGUID
       value: 636b9a831ea455e489fb582defd3853d
       objectReference: {fileID: 0}
@@ -442,6 +457,30 @@ PrefabInstance:
     - target: {fileID: 4131086984086272957, guid: d8e5fd6f78128f94aa46e58f150aeba1, type: 3}
       propertyPath: units.Array.data[0].RawGuidValue.Array.data[1]
       value: 685435935612257576
+      objectReference: {fileID: 0}
+    - target: {fileID: 4131086984086272957, guid: d8e5fd6f78128f94aa46e58f150aeba1, type: 3}
+      propertyPath: units.Array.data[0].prefab.RawGuidValue.Array.data[0]
+      value: -5404818614752612124
+      objectReference: {fileID: 0}
+    - target: {fileID: 4131086984086272957, guid: d8e5fd6f78128f94aa46e58f150aeba1, type: 3}
+      propertyPath: units.Array.data[0].prefab.RawGuidValue.Array.data[1]
+      value: 685435935612257576
+      objectReference: {fileID: 0}
+    - target: {fileID: 4131086984086272957, guid: d8e5fd6f78128f94aa46e58f150aeba1, type: 3}
+      propertyPath: units.Array.data[1].prefab.RawGuidValue.Array.data[0]
+      value: 1496271085418944509
+      objectReference: {fileID: 0}
+    - target: {fileID: 4131086984086272957, guid: d8e5fd6f78128f94aa46e58f150aeba1, type: 3}
+      propertyPath: units.Array.data[1].prefab.RawGuidValue.Array.data[1]
+      value: -9219014904119747493
+      objectReference: {fileID: 0}
+    - target: {fileID: 4131086984086272957, guid: d8e5fd6f78128f94aa46e58f150aeba1, type: 3}
+      propertyPath: units.Array.data[2].prefab.RawGuidValue.Array.data[0]
+      value: -3139896046736658691
+      objectReference: {fileID: 0}
+    - target: {fileID: 4131086984086272957, guid: d8e5fd6f78128f94aa46e58f150aeba1, type: 3}
+      propertyPath: units.Array.data[2].prefab.RawGuidValue.Array.data[1]
+      value: 1134318989885150618
       objectReference: {fileID: 0}
     - target: {fileID: 4924159086410958131, guid: d8e5fd6f78128f94aa46e58f150aeba1, type: 3}
       propertyPath: m_Name
@@ -540,12 +579,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 829821041}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.034, y: 0.824, z: -0.002}
+  m_LocalScale: {x: 0.19999999, y: 0.01, z: 0.099999994}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2110270550}
+  m_Father: {fileID: 1861226738}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!64 &829821043
 MeshCollider:
@@ -576,7 +615,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 829821041}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -967,6 +1006,11 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+--- !u!4 &1861226738 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4039104989086920, guid: e26ccbe2ab9e83046a83abeec5dfe0af, type: 3}
+  m_PrefabInstance: {fileID: 216492807}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1951292001 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4924159086410958131, guid: d8e5fd6f78128f94aa46e58f150aeba1, type: 3}
@@ -1083,7 +1127,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 60.000004
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -1109,14 +1153,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2110270547}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 7, y: 200, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 829821042}
+  m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!114 &2110270551
 MonoBehaviour:
   m_ObjectHideFlags: 0
