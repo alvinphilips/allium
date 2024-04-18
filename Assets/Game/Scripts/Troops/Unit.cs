@@ -1,7 +1,9 @@
+using System;
 using UnityEngine;
 
 namespace Game.Scripts.Troops
 {
+    [Serializable]
     public enum UnitType
     {
         Looters,
@@ -11,7 +13,10 @@ namespace Game.Scripts.Troops
     public class Unit : Troop
     {
         //To decide on which action to perform
+        [SerializeField]
         public UnitType unitType;
+
+        
 
         public override Transform GetTarget()
         {

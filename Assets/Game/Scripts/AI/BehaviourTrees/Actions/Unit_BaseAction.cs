@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Game.Scripts.Troops;
 using UnityEngine;
 
-public class Unit_BaseAction : Task
+public class Unit_BaseAction : Action
 {
     protected Unit unit;
 

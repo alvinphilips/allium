@@ -28,8 +28,8 @@ Transform:
   m_GameObject: {fileID: 1715387363712869791}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0.2, z: 0}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 761185011388996722}
@@ -117,6 +117,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1026791872174473890}
+  - component: {fileID: 7016464453592843063}
+  - component: {fileID: 4587684279466886987}
+  - component: {fileID: 3596310738981622689}
+  - component: {fileID: 7683527258070026794}
+  - component: {fileID: 2592839965304499574}
+  - component: {fileID: 7192954189529701683}
   m_Layer: 0
   m_Name: Soldier
   m_TagString: Untagged
@@ -140,6 +146,154 @@ Transform:
   - {fileID: 8299133384568836034}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7016464453592843063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1841448773833342889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e2e17de466473a4ea9720aa39230678, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Target: {fileID: 0}
+  _Range: 2
+  _Damage: 0
+  turretRotateSpeed: 10
+  fireThreshold: 0
+  fireDelay: 0
+  unitType: 0
+--- !u!114 &4587684279466886987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1841448773833342889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SortKey: 2268376068
+  ObjectInterest: 1
+  Flags: 262145
+  NestedObjects: []
+  NetworkedBehaviours:
+  - {fileID: 7016464453592843063}
+--- !u!114 &3596310738981622689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1841448773833342889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d7b55c7ecdb49a4a89fa5e6f9022861, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startWhenEnabled: 1
+  asynchronousLoad: 0
+  pauseWhenDisabled: 0
+  restartWhenComplete: 0
+  logTaskChanges: 0
+  group: 0
+  resetValuesOnRestart: 0
+  externalBehavior: {fileID: 0}
+  mBehaviorSource:
+    behaviorName: BehaviorLooter
+    behaviorDescription: 
+    mTaskData:
+      types: []
+      parentIndex: 
+      startIndex: 
+      variableStartIndex: 
+      JSONSerialization: '{"EntryTask":{"Type":"BehaviorDesigner.Runtime.Tasks.EntryTask","NodeData":{"Offset":"(456,180)"},"ID":0,"Name":"Entry","Instant":true},"RootTask":{"Type":"BehaviorDesigner.Runtime.Tasks.Repeater","NodeData":{"Offset":"(3,107)"},"ID":1,"Name":"Repeater","Instant":true,"SharedIntcount":{"Type":"BehaviorDesigner.Runtime.SharedInt","Name":null,"Int32mValue":0},"SharedBoolrepeatForever":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":false},"SharedBoolendOnFailure":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":true},"Children":[{"Type":"BehaviorDesigner.Runtime.Tasks.Parallel","NodeData":{"Offset":"(0,110)"},"ID":2,"Name":"Parallel","Instant":true,"AbortTypeabortType":"None","Children":[{"Type":"BehaviorDesigner.Runtime.Tasks.Sequence","NodeData":{"Offset":"(-226.984283,144.98941)"},"ID":3,"Name":"Sequence","Instant":true,"AbortTypeabortType":"None","Children":[{"Type":"Unit_SeekTarget","NodeData":{"Offset":"(-408.230347,145.0429)"},"ID":4,"Name":"Unit  
+        Seek Target","Instant":true},{"Type":"Unit_HasTarget","NodeData":{"Offset":"(-260.00882,139.504272)"},"ID":5,"Name":"Unit  
+        Has Target","Instant":true},{"Type":"Unit_ApproachTarget","NodeData":{"Offset":"(-118.38472,142.839767)"},"ID":6,"Name":"Unit  
+        Approach Target","Instant":true},{"Type":"Unit_TargetInRange","NodeData":{"Offset":"(60.62815,140.699417)"},"ID":7,"Name":"Unit  
+        Target In Range","Instant":true},{"Type":"BehaviorDesigner.Runtime.Tasks.Selector","NodeData":{"Offset":"(217.919968,142.78273)"},"ID":8,"Name":"Selector","Instant":true,"AbortTypeabortType":"None","Children":[{"Type":"BehaviorDesigner.Runtime.Tasks.Sequence","NodeData":{"Offset":"(-107.139893,105.899048)"},"ID":9,"Name":"Sequence","Instant":true,"AbortTypeabortType":"None","Children":[{"Type":"Unit_IsLooter","NodeData":{"Offset":"(-80.15604,110.253052)"},"ID":10,"Name":"Unit  
+        Is Looter","Instant":true},{"Type":"Unit_Steal","NodeData":{"Offset":"(64.48801,108.689758)"},"ID":11,"Name":"Unit  
+        Steal","Instant":true,"SharedIntgenFrequency":{"Type":"BehaviorDesigner.Runtime.SharedInt","Name":null,"Int32mValue":0}}]},{"Type":"Unit_Attack","NodeData":{"Offset":"(70.76709,116.3642)"},"ID":12,"Name":"Unit  
+        Attack","Instant":true}]}]},{"Type":"BehaviorDesigner.Runtime.Tasks.Sequence","NodeData":{"Offset":"(382.402954,151.91835)"},"ID":13,"Name":"Sequence","Instant":true,"AbortTypeabortType":"None","Children":[{"Type":"Unit_IsDamaged","NodeData":{"Offset":"(-63.92348,137.866409)"},"ID":14,"Name":"Unit  
+        Is Damaged","Instant":true},{"Type":"Unit_Flee","NodeData":{"Offset":"(98.47235,137.0127)"},"ID":15,"Name":"Unit  
+        Flee","Instant":true}]}]}]}}'
+      fieldSerializationData:
+        typeName: []
+        fieldNameHash: 
+        startIndex: 
+        dataPosition: 
+        unityObjects: []
+        byteData: 
+        byteDataArray: 
+      Version: 1.7.4
+  gizmoViewMode: 2
+  showBehaviorDesignerGizmo: 1
+--- !u!114 &7683527258070026794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1841448773833342889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39b5fcb5a8966f649b6fd67e4f969ff4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {x: 0, y: 0, z: 0}
+  summingMethod: 0
+  mass: 1
+  maxSpeed: 1
+  maxForce: 10
+  velocity: {x: 0, y: 0, z: 0}
+  angularDampeningTime: 5
+  deadZone: 10
+  bReachedGoal: 0
+--- !u!114 &2592839965304499574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1841448773833342889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd0a10b68a0e6cc4e9cd049df4d52d95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weight: 1
+  bUseMouseInput: 1
+  steeringAgent: {fileID: 0}
+  slowDownDistance: 2
+  stoppingDistance: 0.1
+--- !u!114 &7192954189529701683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1841448773833342889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c9684ed2c433864cba3d0b655cb50c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weight: 1
+  bUseMouseInput: 1
+  steeringAgent: {fileID: 0}
+  feelers:
+  - distance: 2
+    offset: {x: 0.25, y: 0.2, z: 0}
+  - distance: 2
+    offset: {x: -0.25, y: 0.2, z: 0}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  avoidWeight: 1
 --- !u!1 &7378694100184226919
 GameObject:
   m_ObjectHideFlags: 0
