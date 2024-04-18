@@ -195,13 +195,29 @@ namespace Game.Scripts.Game
             if (FusionManager.Instance.IsHost)
             {
                 FusionManager.Instance.Runner.Spawn(CurrentUnit, position, rotation);
+                UpdatePlacementHandler();
             }
             else
             {
                 RpcSpawnItem(CurrentUnit, position, rotation);
             }
         }
-        
+
+        private void UpdatePlacementHandler()
+        {
+            ObjectType objectType = ObjectType.ResourceBldg;
+            switch (_currentUnitIndex)
+            {
+                case 0:
+                    objectType = ObjectType.Tank; break;
+                case 1:
+                case 2:
+                    objectType = ObjectType.DefenceBldg; break;
+                    //Code to be added for further objects
+            }
+            PlacementHandler.Instance.AddObject(CurrentUnit.gameObject, objectType);
+        }
+
         [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
         public void RpcSpawnItem(NetworkObject no, Vector3 position, Quaternion rotation)
         {
