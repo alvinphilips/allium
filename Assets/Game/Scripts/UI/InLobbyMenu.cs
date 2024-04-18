@@ -12,6 +12,7 @@ namespace Game.Scripts.UI
     public class InLobbyMenu : Menu
     {
         [SerializeField] private int gameSceneIndex;
+        [SerializeField] private GameUI gameUI;
         
         public string LobbyName { get; set; }
 
@@ -85,7 +86,7 @@ namespace Game.Scripts.UI
             startGame.SetEnabled(playerCount > 1);
             startGame.RegisterCallback<ClickEvent>(evt =>
             {
-                MenuManager.Instance.HideAllMenus();
+                MenuManager.Instance.ShowMenu(gameUI);
             });
             if (IsMobile)
             {

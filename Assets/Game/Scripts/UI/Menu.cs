@@ -1,4 +1,5 @@
 using System.Collections;
+using Game.Scripts.Game;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -19,6 +20,7 @@ namespace Game.Scripts.UI
         public bool RefreshUI { get; set; }
         public DeviceType Device => deviceType;
         public bool IsMobile => deviceType == DeviceType.Mobile;
+        public bool IsAREnabled => GameManager.Instance.IsAREnabled;
         
         protected void Start()
         {

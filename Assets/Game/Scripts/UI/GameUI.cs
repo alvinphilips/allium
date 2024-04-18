@@ -1,4 +1,6 @@
 ﻿using System.Collections;
+using Fusion;
+using Game.Scripts.Game;
 using Game.Scripts.Utils;
 using UnityEngine.UIElements;
 
@@ -23,6 +25,26 @@ namespace Game.Scripts.UI
             }
 
             var bottomBar = container.Create("bg-emerald-700", "w-full", "p-4");
+            var units = bottomBar.Create<ScrollView>("w-full", "bg-emerald-800", "flex-col");
+            for (var i = 0; i < GameManager.Instance.Units.Count; i++)
+            {
+                var unitButton = units.Create<Button>("text-center", "text-white");
+                if (GameManager.Instance.SelectedUnitIndex == i)
+                {
+                    unitButton.AddToClassList("bg-emerald-600");
+                }
+                unitButton.text = GameManager.Instance.Units[i].name;
+                var index = i;
+                unitButton.RegisterCallback<ClickEvent>(_ =>
+                {
+                    GameManager.Instance.SetSelectedUnitIndex(index);
+                    RefreshUI = true;
+                });
+            }
+            if (IsMobile)
+            {
+                bottomBar.AddToClassList("pb-8");
+            }
         }
     }
 }
