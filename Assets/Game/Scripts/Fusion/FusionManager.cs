@@ -74,7 +74,7 @@ namespace Game.Scripts.Fusion
                 GameMode = GameMode.AutoHostOrClient,
                 SessionName = sessionName,
                 PlayerCount = 2,
-                SceneManager = _sceneManager,
+                Scene = SceneRef.FromIndex(SceneManager.GetActiveScene().buildIndex)
             });
 
             if (!result.Ok)
@@ -96,7 +96,7 @@ namespace Game.Scripts.Fusion
                 GameMode = GameMode.Client,
                 SessionName = sessionName,
                 SceneManager = _sceneManager,
-                
+                Scene = SceneRef.FromIndex(SceneManager.GetActiveScene().buildIndex)
             });
 
             if (!result.Ok)

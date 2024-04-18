@@ -10,8 +10,6 @@ using Game.Scripts.Patterns;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
-using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 using UnityEngine.XR.ARFoundation;
 
 namespace Game.Scripts.Game
@@ -199,14 +197,15 @@ namespace Game.Scripts.Game
 
         public void SpawnItem(Vector3 position, Quaternion rotation)
         {
+            var currentUnit = units[_currentUnitIndex].prefab;
             if (FusionManager.Instance.IsHost)
             {
-                var no = FusionManager.Instance.Runner.Spawn(CurrentUnit, position, rotation);
+                var no = Runner.Spawn(currentUnit, position, rotation);
                 UpdatePlacementHandler(no);
             }
             else
             {
-                RpcSpawnItem(CurrentUnit, position, rotation);
+                RpcSpawnItem(currentUnit, position, rotation);
             }
         }
 
